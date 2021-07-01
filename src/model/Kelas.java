@@ -15,12 +15,9 @@ import java.util.HashMap;
  */
 public class Kelas {
     
-    String guru;
-    String namaMapel;
-    String jadwal;
-    LinkedList<Posting> classPosting = new LinkedList<Posting>();
-    ArrayList<Murid> students = new ArrayList<Murid>();
-    HashMap<String, Integer> nilaiAkhirMurid = new HashMap<String, Integer>();
-    HashMap<String, Boolean> absensiMurid = new HashMap<String, Boolean>();
+    ArrayList<Murid> arrMurid = new ArrayList();
+    Guru homeRoomTeacher = new Guru();
+    ArrayList<Posting> arrPost = new ArrayList();
+    ArrayList<Absensi> arrAbsensi = new ArrayList();
             
 }

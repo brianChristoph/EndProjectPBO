@@ -5,16 +5,20 @@
  */
 package model;
 
-import java.time.LocalDate;
+
 
 /**
  *
  * @author BRCS
  */
-public class Assignment extends Posting {
+public class Admin {
     
-    int nilai;
-    LocalDate due;
-    boolean isDone;
+    public void registerUser(){
+        
+    }
+    
+    public void removeUser(){
+        
+    }
     
 }

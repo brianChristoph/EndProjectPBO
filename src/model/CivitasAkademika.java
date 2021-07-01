@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author BRCS
  */
-public class CivitasAkademika extends User {
+public abstract class CivitasAkademika extends User {
     
     private String nomorInduk;
     private ArrayList<Kelas> joinedClass = new ArrayList<Kelas>();

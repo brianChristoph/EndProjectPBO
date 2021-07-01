@@ -9,8 +9,8 @@ package model;
  *
  * @author BRCS
  */
-public class Materi extends Posting{
+public enum StatusAbsensi {
     
-    String type;
+    HADIR, ALPHA;
     
 }

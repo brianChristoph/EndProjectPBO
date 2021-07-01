@@ -9,7 +9,7 @@ package model;
  *
  * @author BRCS
  */
-public class User {
+public abstract class User {
     
     private String id;
     private String nama;
@@ -47,5 +47,14 @@ public class User {
     public void setNoTlp(String noTlp) {
         this.noTlp = noTlp;
     }
+
+    public User(String id, String nama, String password, String noTlp) {
+        this.id = id;
+        this.nama = nama;
+        this.password = password;
+        this.noTlp = noTlp;
+    }
+    
+    public User(){}
     
 }

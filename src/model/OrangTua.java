@@ -13,6 +13,18 @@ import java.util.ArrayList;
  */
 public class OrangTua extends User{
     
-    ArrayList<Murid> anak = new ArrayList<Murid>();
+    private ArrayList<Murid> anak = new ArrayList<Murid>();
+
+    public ArrayList<Murid> getAnak() {
+        return anak;
+    }
+
+    public void setAnak(ArrayList<Murid> anak) {
+        this.anak = anak;
+    }
+    
+    public void bayarSPP(){
+        
+    }
     
 }
