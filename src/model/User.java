@@ -57,4 +57,16 @@ public abstract class User {
     
     public User(){}
     
+    public void lihatPengumuman(){
+        
+    }
+    
+    public void login(){
+        
+    }
+    
+    public void logout(){
+        
+    }
+    
 }

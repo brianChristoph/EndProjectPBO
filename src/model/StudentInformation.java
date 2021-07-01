@@ -5,15 +5,15 @@
  */
 package model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author BRCS
  */
-public abstract class CivitasAkademika extends User {
+public interface StudentInformation {
     
-    private String nomorInduk;
-    private ArrayList<Kelas> joinedClass = new ArrayList<Kelas>();
+    abstract public void cekJadwal();
+    abstract public void cekAbsensi();
+    abstract public void lihatRapor();
+    abstract public void lihatGuruPengajar();
     
 }

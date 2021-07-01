@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author BRCS
  */
-public class Murid extends User{
+public class Murid extends User implements StudentInformation {
     
     private ArrayList<Kelas> listKelas = new ArrayList();
     private double SPP;
@@ -48,5 +48,37 @@ public class Murid extends User{
     }
     
     public Murid(){}
+    
+    public void gabungKelas(){
+        
+    }
+    
+    public void keluarKelas(){
+        
+    }
+    
+    public void kumpulkanTugas(){
+        
+    }
+
+    @Override
+    public void cekJadwal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void cekAbsensi() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void lihatRapor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void lihatGuruPengajar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
