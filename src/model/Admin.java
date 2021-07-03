@@ -11,7 +11,7 @@ package model;
  *
  * @author BRCS
  */
-public class Admin implements ClassAdministrator {
+public class Admin extends User implements ClassAdministrator {
     
     public void registerUser(){
         
