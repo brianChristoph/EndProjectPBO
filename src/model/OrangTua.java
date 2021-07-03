@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author BRCS
  */
 public class OrangTua extends User implements StudentInformation {
-    
+
     private ArrayList<Murid> anak = new ArrayList<Murid>();
 
     public ArrayList<Murid> getAnak() {
@@ -22,9 +22,13 @@ public class OrangTua extends User implements StudentInformation {
     public void setAnak(ArrayList<Murid> anak) {
         this.anak = anak;
     }
-    
-    public void bayarSPP(){
-        
+
+    public void addAnak(Murid anak) {
+        this.anak.add(anak);
+    }
+
+    public void bayarSPP() {
+
     }
 
     @Override
@@ -46,5 +50,5 @@ public class OrangTua extends User implements StudentInformation {
     public void lihatGuruPengajar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

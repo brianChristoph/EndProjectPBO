@@ -5,20 +5,33 @@
  */
 package model;
 
-
-
 /**
  *
  * @author BRCS
  */
 public class Admin extends User implements ClassAdministrator {
-    
-    public void registerUser(){
-        
+
+    private String nik;
+
+    public Admin(String nik, int id, String nama, String password, String noTlp, TipeUser tipe) {
+        super(id, nama, password, noTlp, tipe);
+        this.nik = nik;
     }
-    
-    public void removeUser(){
-        
+
+    public String getNik() {
+        return nik;
+    }
+
+    public void setNik(String nik) {
+        this.nik = nik;
+    }
+
+    public void registerUser() {
+
+    }
+
+    public void removeUser() {
+
     }
 
     @Override
@@ -40,5 +53,5 @@ public class Admin extends User implements ClassAdministrator {
     public void mengubahJadwalKelas() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
