@@ -45,6 +45,7 @@ public class Murid extends User implements StudentInformation {
         this.SPP = SPP;
         this.angkatan = angkatan;
         this.listKelas = listKelas;
+        super.setTipe(TipeUser.STUDENT);
     }
     
     public Murid(){}

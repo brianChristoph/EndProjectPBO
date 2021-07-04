@@ -10,17 +10,18 @@ package model;
  * @author BRCS
  */
 public abstract class User {
-    
-    private String id;
+
+    private int id;
     private String nama;
     private String password;
     private String noTlp;
+    private TipeUser tipe;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -48,25 +49,42 @@ public abstract class User {
         this.noTlp = noTlp;
     }
 
-    public User(String id, String nama, String password, String noTlp) {
+    public User(int id, String nama, String password, String noTlp) {
         this.id = id;
         this.nama = nama;
         this.password = password;
         this.noTlp = noTlp;
     }
-    
-    public User(){}
-    
-    public void lihatPengumuman(){
-        
+
+    public User(int id, String nama, String password, String noTlp, TipeUser tipe) {
+        this.id = id;
+        this.nama = nama;
+        this.password = password;
+        this.noTlp = noTlp;
+        this.tipe = tipe;
     }
-    
-    public void login(){
-        
+
+    public User() {
     }
-    
-    public void logout(){
-        
+
+    public void lihatPengumuman() {
+
     }
-    
+
+    public void login() {
+
+    }
+
+    public void logout() {
+
+    }
+
+    public TipeUser getTipe() {
+        return tipe;
+    }
+
+    public void setTipe(TipeUser tipe) {
+        this.tipe = tipe;
+    }
+
 }
