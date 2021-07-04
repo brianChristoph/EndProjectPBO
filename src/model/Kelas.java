@@ -55,5 +55,9 @@ public class Kelas {
     public Kelas(){
         
     }
+    
+    public void addMurid(Murid student){
+        this.arrMurid.add(student);
+    }
             
 }
