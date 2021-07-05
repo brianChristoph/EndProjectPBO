@@ -73,9 +73,10 @@ public class TeacherController {
 
                 } else {
                     try {
-                        String query = "DELETE FROM `murid_kelas` WHERE id_murid = ?";
+                        String query = "DELETE FROM `murid_kelas` WHERE id_murid = ? AND id_kelas = ?";
                         PreparedStatement st = conn.con.prepareStatement(query);
                         st.setInt(1, result);
+                        st.setInt(2, idKelas);
                         st.executeUpdate();
                         System.out.println("Murid with id " + idMurid + " deleted from kelas with id " + idKelas);
                     } catch (SQLException e) {
