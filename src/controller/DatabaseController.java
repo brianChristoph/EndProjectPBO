@@ -48,4 +48,45 @@ public class DatabaseController {
     public DatabaseController() {
         initializeAdmin();
     }
+    
+    public Kelas takeKelas(int idKelas){
+        String query = "SELECT * FROM kelas WHERE id_kelas = " + idKelas;
+        conn.connect();
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            Kelas dBaseKelas = new Kelas();
+            /**
+             * dBaseKelas.setHomeRoomTeacher
+             * dBaseKelas.setArrMurid
+             * dBaseKelas.setArrPost
+             * dBaseKelas.setArrAbsensi
+             */
+        } catch (Exception e) {
+            System.out.println("eror" + e);
+        }
+        return null;
+    }
+    
+    public User takeUser(TipeUser tipe){
+        String query = "";
+        switch(tipe){
+            case STUDENT:
+                query = "SELECT * FROM murid HWERE";
+                break;
+            case PARENT:
+                query = "SELECT * FROM orang_tua WHERE";
+                break;
+            case TEACHER:
+                query = "SELECT * FROM guru WHERE";
+                break;
+            case ADMIN:
+                query = "SELECT * FROM admin WHERE";
+                break;
+            default:
+                break;
+        }
+        return null;
+    }
+    
 }
