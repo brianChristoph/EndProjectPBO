@@ -12,6 +12,7 @@ import model.User;
 import model.Guru;
 import model.Murid;
 import model.Kelas;
+import model.TipeUser;
 
 /**
  *
@@ -35,6 +36,7 @@ public class TeacherController {
                 /**
                  * if idKelas == id kelas yang ada di database return i;
                  */
+
             }
         }
         return -1;
@@ -44,8 +46,18 @@ public class TeacherController {
 
     }
 
-    public void createNewPost(User pengguna, int idKelas, String post) {
+    public void createNewPost(User pengguna, int idKelas, String judul, String post) {
+        if (pengguna.getTipe().TEACHER == TipeUser.TEACHER) {
+            try {
+                String query = "INSERT INTO `post`(`judul`, `deskripsi`) VALUES (?,?)";
+                PreparedStatement st = conn.con.prepareStatement(query);
+                st.setString(1, judul);
+                st.setString(2, post);
+                st.executeUpdate();
+            } catch (SQLException e) {
 
+            }
+        }
     }
 
     public void deletePost(User pengguna, int idKelas, int idPost) {
@@ -70,7 +82,7 @@ public class TeacherController {
                  */
                 int result = getMuridById(murids, idMurid);
                 if (result == -1) {
-
+                    System.out.println("No murid with id " + idMurid + " found");
                 } else {
                     try {
                         String query = "DELETE FROM `murid_kelas` WHERE id_murid = ? AND id_kelas = ?";
