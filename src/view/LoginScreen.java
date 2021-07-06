@@ -16,6 +16,7 @@ import java.awt.event.*;
 public class LoginScreen {
 
     public LoginScreen() {
+        
         JFrame f = new JFrame("Login Frame");
         Font roboto = new Font("Roboto", Font.PLAIN, 18);
 
@@ -62,7 +63,12 @@ public class LoginScreen {
         Button login = new Button("Login");
         login.setBounds(121, 524, 189, 36);
 
-        login.addActionListener((ActionListener) this);
+        login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Login Controller
+            }
+        });
 
         f.add(identity);
         f.add(id);
@@ -74,9 +80,5 @@ public class LoginScreen {
         f.setSize(432, 768);
         f.setLayout(null);
         f.setVisible(true);
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("test");
     }
 }
