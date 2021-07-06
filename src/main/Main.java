@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 package main;
-
-import view.MainMenu;
-
+import view.LoginScreen;
+import view.StudentDashboard;
 /**
  *
- * @author BRCS
+ * @author jonat
  */
 public class Main {
     public static void main(String[] args) {
-        new MainMenu();
+//        new LoginScreen();
+        new StudentDashboard();
     }
 }
