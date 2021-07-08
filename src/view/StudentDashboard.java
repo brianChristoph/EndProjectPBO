@@ -16,7 +16,8 @@ public class StudentDashboard {
 
     public StudentDashboard() {
         JFrame f = new JFrame("Student Dashboard");
-        JPanel head = Header.header;
+        Header header = new Header("Hi","Jo");
+        JPanel head = header.getHeader();
         head.setLocation(0, 0);
         f.add(head);
         head.setLayout(null);

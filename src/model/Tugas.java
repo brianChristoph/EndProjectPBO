@@ -15,6 +15,9 @@ public class Tugas extends Posting {
     
     private double nilai;
     private LocalDate tanggalPengumpulan;
+    private LocalDate tanggalDikumpulkan;
+    private boolean terkumpulkan;
+    
 
     public double getNilai() {
         return nilai;
@@ -38,5 +41,21 @@ public class Tugas extends Posting {
     }
     
     public Tugas(){}
+
+    public LocalDate getTanggalDikumpulkan() {
+        return tanggalDikumpulkan;
+    }
+
+    public void setTanggalDikumpulkan(LocalDate tanggalDikumpulkan) {
+        this.tanggalDikumpulkan = tanggalDikumpulkan;
+    }
+
+    public boolean isTerkumpulkan() {
+        return terkumpulkan;
+    }
+
+    public void setTerkumpulkan(boolean terkumpulkan) {
+        this.terkumpulkan = terkumpulkan;
+    }
     
 }
