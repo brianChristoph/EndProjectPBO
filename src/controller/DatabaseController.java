@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import model.*;
 
@@ -163,20 +164,111 @@ public class DatabaseController {
         return null;
     }
     
-    private ArrayList<Posting> makeArrayListPost(Statement st){
+    private ArrayList<Kelas> makeArrayListKelas(Statement st){
+        ArrayList<Kelas> arrK = new ArrayList();
+        String query = "SELECT * FROM kelas";
+        try{
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                Kelas k = new Kelas();
+                k.setHomeRoomTeacher(getGuru(st, rs.getInt("id_guru")));
+                k.setArrAbsensiMurid(makeArrayListAbsensi(st, rs.getInt("id_kelas")));
+                k.setArrPost(makeArrayListPost(st, rs.getInt("id_kelas")));
+                k.setArrMurid(makeArrayListMurid(st, rs.getInt("id_kelas")));
+                arrK.add(k);
+            }
+        } catch (Exception e) {
+            // error message
+        }
+        return arrK;
+    }
+    
+    private Guru getGuru(Statement st, int idGuru){
+        Guru g = new Guru();
+        String query = "SELECT * FROM guru WHERE id_guru = " + idGuru;
+        try {
+            ResultSet rs = st.executeQuery(query);
+            g.setId(rs.getInt("id_guru"));
+            g.setNama(rs.getString("nama"));
+            g.setPassword(rs.getString("password"));
+            g.setNoTlp(rs.getString("no_telepon"));
+            g.setTipe(TipeUser.TEACHER);
+        } catch(Exception e) {
+            
+        }
+        return g;
+    }
+    
+    private ArrayList<Posting> makeArrayListPost(Statement st, int idKelas){
         ArrayList<Posting> arrP = new ArrayList();
-        
+        String query = "SELECT * FROM post WHERE id_kelas = " + idKelas;
+        try{
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                Posting p = new Posting();
+                p.setDeskripsi(rs.getString("deskripsi"));
+                p.setJudul(rs.getString("judul"));
+                arrP.add(p);
+            }
+        } catch (Exception e) {
+            // error message
+        }
         return arrP;
     }
     
-    private ArrayList<Murid> makeArrayListMurid(Statement st){
+    private ArrayList<Murid> makeArrayListMurid(Statement st, int idKelas){
         ArrayList<Murid> arrM = new ArrayList();
+        String query = "SELECT * FROM murid_kelas WHERE id_kelas = " + idKelas;
+        try{
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                Murid m = new Murid();
+                m.setId(rs.getInt("id_murid"));
+                m.setNama(rs.getString("nama"));
+                m.setPassword(rs.getString("password"));
+                m.setNoTlp(rs.getString("no_telepon"));
+                m.setSPP(rs.getInt("uang_sekolah"));
+                m.setTipe(TipeUser.STUDENT);
+                arrM.add(m);
+            }
+        } catch (Exception e) {
+            // error message
+        }
         return arrM;
     }
     
-    private ArrayList<Absensi> makeArrayListAbsensi(Statement st){
+    private ArrayList<Absensi> makeArrayListAbsensi(Statement st, int idKelas){
         ArrayList<Absensi> arrA = new ArrayList();
+        String query = "SELECT * FROM absensi WHERE id_kelas = " + idKelas;
+        try{
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                Absensi a = new Absensi();
+                a.setDate(rs.getDate("tanggal"));
+                a.setHadir((rs.getInt("hadir") == 1)? StatusAbsensi.HADIR : StatusAbsensi.ALPHA);
+                arrA.add(a);
+            }
+        } catch (Exception e) {
+            // error message
+        }
         return arrA;
+    }
+    
+    private ArrayList<Tugas> makeArrayListTugas(Statement st, int idKelas){
+        ArrayList<Tugas> arrT = new ArrayList();
+        String query = "SELECT * FROM tugas WHERE id_kelas = " + idKelas;
+        try {
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                Tugas t = new Tugas();
+                t.setJudul(rs.getString("judul"));
+                t.setTanggalPengumpulan(rs.getDate("tanggal_pengumpulan"));
+                arrT.add(t);
+            }
+        } catch (Exception e) {
+            
+        }
+        return arrT;
     }
     
 }
