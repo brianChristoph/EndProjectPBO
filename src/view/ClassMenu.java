@@ -11,4 +11,8 @@ package view;
  */
 public class ClassMenu {
     
+    public ClassMenu(){
+        
+    }
+    
 }
