@@ -5,7 +5,7 @@
  */
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class Tugas extends Posting {
     
     private double nilai;
-    private LocalDate tanggalPengumpulan;
+    private Date tanggalPengumpulan;
 
     public double getNilai() {
         return nilai;
@@ -24,15 +24,15 @@ public class Tugas extends Posting {
         this.nilai = nilai;
     }
 
-    public LocalDate getTanggalPengumpulan() {
+    public Date getTanggalPengumpulan() {
         return tanggalPengumpulan;
     }
 
-    public void setTanggalPengumpulan(LocalDate tanggalPengumpulan) {
+    public void setTanggalPengumpulan(Date tanggalPengumpulan) {
         this.tanggalPengumpulan = tanggalPengumpulan;
     }
 
-    public Tugas(double nilai, LocalDate tanggalPengumpulan) {
+    public Tugas(double nilai, Date tanggalPengumpulan) {
         this.nilai = nilai;
         this.tanggalPengumpulan = tanggalPengumpulan;
     }
