@@ -48,6 +48,14 @@ public abstract class User {
     public void setNoTlp(String noTlp) {
         this.noTlp = noTlp;
     }
+    
+    public TipeUser getTipe() {
+        return tipe;
+    }
+
+    public void setTipe(TipeUser tipe) {
+        this.tipe = tipe;
+    }
 
     public User(int id, String nama, String password, String noTlp) {
         this.id = id;
@@ -67,24 +75,5 @@ public abstract class User {
     public User() {
     }
 
-    public void lihatPengumuman() {
-
-    }
-
-    public void login() {
-
-    }
-
-    public void logout() {
-
-    }
-
-    public TipeUser getTipe() {
-        return tipe;
-    }
-
-    public void setTipe(TipeUser tipe) {
-        this.tipe = tipe;
-    }
 
 }

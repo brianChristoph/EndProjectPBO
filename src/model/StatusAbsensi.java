@@ -11,6 +11,15 @@ package model;
  */
 public enum StatusAbsensi {
     
-    HADIR, ALPHA;
+    HADIR(1), ALPHA(0);
+    private final int value;
+    
+    public int getValue(){
+        return this.value;
+    }
+    
+    private StatusAbsensi(int value){
+        this.value = value;
+    }
     
 }

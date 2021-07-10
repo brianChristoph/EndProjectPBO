@@ -5,7 +5,7 @@
  */
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -13,14 +13,14 @@ import java.time.LocalDate;
  */
 public class Absensi {
     
-    private LocalDate date;
+    private Date date;
     private StatusAbsensi hadir;
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -32,7 +32,7 @@ public class Absensi {
         this.hadir = hadir;
     }
 
-    public Absensi(LocalDate date, StatusAbsensi hadir) {
+    public Absensi(Date date, StatusAbsensi hadir) {
         this.date = date;
         this.hadir = hadir;
     }
