@@ -25,12 +25,12 @@ public class TeacherController {
     ArrayList<Kelas> arrKelas = new ArrayList();
     DatabaseHandler conn = new DatabaseHandler();
     
-    // Take From Database
-    public Guru getUser(String id, String password, int idGuru){
+    // Database related
+    public User getUser(String id, String password, int idGuru){
         Guru user = new Guru();
         String query = "";
         if(idGuru != 0)
-            query = "SELECT * FROM admin WHERE id_guru = " + idGuru;
+            query = "SELECT * FROM guru WHERE id_guru = " + idGuru;
         else
             query = "SELECT * FROM guru WHERE nik = '" + id + "' && password = '" + password + "'";
         try {
@@ -41,12 +41,29 @@ public class TeacherController {
                 user.setPassword(rs.getString("password"));
                 user.setNoTlp("no_tlp");
                 user.setTipe(TipeUser.TEACHER);
-//                user.setAjarKelas(makeArrayListKelas(st, false, rs.getInt("id_guru")));
+                user.setAjarKelas(getTaughtClasses(rs.getInt("id_guru")));
             }
         } catch(SQLException ex) {
             
         }
         return user;
+    }
+    private ArrayList<Kelas> getTaughtClasses(int idGuru){
+        ArrayList<Kelas> arrClasses = new ArrayList();
+        conn.connect();
+        String query = "SELECT * FROM kelas WHERE id_guru = " + idGuru;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                ClassController cc = new ClassController();
+                Kelas taughtClass = cc.getKelas(rs.getInt("id_kelas"));
+                arrClasses.add(taughtClass);
+            }
+        } catch(SQLException ex) {
+            
+        }
+        return arrClasses;
     }
 
     private boolean isTeacher(User pengguna) {
