@@ -5,9 +5,7 @@
  */
 package model;
 
-import java.util.LinkedList;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  *
@@ -18,6 +16,7 @@ public class Kelas {
     private String nama;
     private String kode;
     private String jadwal;
+    private double na;
     private ArrayList<Murid> arrMurid = new ArrayList();
     private Guru homeRoomTeacher = new Guru();
     private ArrayList<Posting> arrPost = new ArrayList();
@@ -30,6 +29,14 @@ public class Kelas {
         this.nama = nama;
         this.kode = kode;
         this.jadwal = jadwal;
+    }
+
+    public double getNa() {
+        return na;
+    }
+
+    public void setNa(double na) {
+        this.na = na;
     }
 
     public ArrayList<Murid> getArrMurid() {

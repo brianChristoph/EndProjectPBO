@@ -57,18 +57,6 @@ public class Murid extends User implements StudentInformation {
     }
     
     public Murid(){}
-    
-    public void gabungKelas(){
-        
-    }
-    
-    public void keluarKelas(){
-        
-    }
-    
-    public void kumpulkanTugas(){
-        
-    }
 
     @Override
     public void cekJadwal() {

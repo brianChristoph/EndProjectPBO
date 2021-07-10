@@ -12,11 +12,15 @@ import java.util.Date;
  * @author BRCS
  */
 public class Tugas extends Posting {
-    
+
     private double nilai;
     private Date tanggalPengumpulan;
     private Date tanggalDikumpulkan;
     private boolean terkumpulkan;
+
+    public Tugas() {
+
+    }
 
     public double getNilai() {
         return nilai;
@@ -34,13 +38,6 @@ public class Tugas extends Posting {
         this.tanggalPengumpulan = tanggalPengumpulan;
     }
 
-    public Tugas(double nilai, Date tanggalPengumpulan) {
-        this.nilai = nilai;
-        this.tanggalPengumpulan = tanggalPengumpulan;
-    }
-    
-    public Tugas(){}
-
     public Date getTanggalDikumpulkan() {
         return tanggalDikumpulkan;
     }
@@ -56,5 +53,5 @@ public class Tugas extends Posting {
     public void setTerkumpulkan(boolean terkumpulkan) {
         this.terkumpulkan = terkumpulkan;
     }
-    
+
 }

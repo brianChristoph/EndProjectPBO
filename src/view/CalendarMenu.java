@@ -58,8 +58,4 @@ public class CalendarMenu {
 //        });
     }
     
-    public static void main(String[] args) {
-        new CalendarMenu();
-    }
-
 }

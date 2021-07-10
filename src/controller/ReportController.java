@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import model.Kelas;
 import model.Tugas;
 import model.TipeUser;
 import model.UserManager;
@@ -16,12 +17,12 @@ public class ReportController {
 
     DatabaseHandler conn = new DatabaseHandler();
 
-    public ArrayList<Tugas> getReportsFromDB() {
+    public ArrayList<Kelas> getReportsFromDB() {
 
         int id = UserManager.getInstance().getUser().getId();
         TipeUser tipe = UserManager.getInstance().getUser().getTipe();
 
-        ArrayList<Tugas> list = new ArrayList<>();
+        ArrayList<Kelas> list = new ArrayList<>();
 
         conn.connect();
 
@@ -30,35 +31,50 @@ public class ReportController {
         } else if (tipe == TipeUser.PARENT) {
 
         }
-        return null;
+        return list;
     }
 
-    private ArrayList<Tugas> getListForStudent(int id) {
-        ArrayList<Tugas> list = new ArrayList<>();
+    private ArrayList<Kelas> getListForStudent(int id) {
+        ArrayList<Kelas> list = new ArrayList<>();
 
-        String query = "GET `id_kelas` FROM `tugas` WHERE id_murid = " + id;
+        String query = "SELECT `id_kelas`, `nilai` FROM `tugas` WHERE id_murid = " + id;
 
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
 
-            ArrayList<Integer> listIdKelas = new ArrayList<>();
             while (rs.next()) {
+                ArrayList<Tugas> listTugas = new ArrayList<>();
                 Tugas newTugas = new Tugas();
-                newTugas.setNilai(rs.getInt("id_kelas"));
-                list.add(newTugas);
-            }
-            
-            query = "GET `id_kelas` FROM `nilai` WHERE id_murid = " + id;
-            rs = st.executeQuery(query);
-            for (int i = 0; i < list.size(); i++) {
-                
-            }
+                newTugas.setNilai(rs.getInt("nilai"));
+                listTugas.add(newTugas);
 
+                String query2 = "SELECT `nama` FROM `kelas` WHERE id_kelas = " + rs.getInt("id_kelas");
+                Statement st2 = conn.con.createStatement();
+                ResultSet rs2 = st2.executeQuery(query2);
+
+                while (rs2.next()) {
+                    Kelas newKelas = new Kelas();
+                    newKelas.setNama(rs2.getString("nama"));
+                    newKelas.setNa(hitungRataRata(listTugas));
+                    list.add(newKelas);
+                }
+
+            }
+            return list;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private double hitungRataRata(ArrayList<Tugas> tugas) {
+        double rata = 0;
+        for (int i = 0; i < tugas.size(); i++) {
+            rata += tugas.get(i).getNilai();
+        }
+        rata /= tugas.size();
+        return rata;
     }
 
 }
