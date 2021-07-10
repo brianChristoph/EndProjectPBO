@@ -23,6 +23,7 @@ public class AdminController {
     
     // Take User From dBase
     public User getUser(String id, String password){
+        conn.connect();
         Admin user = new Admin();
         String query = "SELECT * FROM admin WHERE nik = '" + id + "' && password = '" + password + "'";
         try {
@@ -40,6 +41,15 @@ public class AdminController {
             
         }
         return user;
+    }
+    
+    public AdminController(){
+        User a = getUser("112233", "admin");
+        System.out.println(a.getNama());
+    }
+    
+    public static void main(String[] args) {
+        new AdminController();
     }
     
 }

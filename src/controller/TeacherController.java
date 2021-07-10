@@ -26,12 +26,14 @@ public class TeacherController {
     DatabaseHandler conn = new DatabaseHandler();
     
     // Database related
-    public User getUser(String id, String password, int idGuru){
-        Guru user = new Guru();
+//    public User getUser(String id, String password, int idGuru){
+    public User getUser(String id, String password, String nama){
         String query = "";
-        if(idGuru != 0)
-            query = "SELECT * FROM guru WHERE id_guru = " + idGuru;
+        Guru user = new Guru();
+        if(nama != null)
+            query = "SELECT * FROM guru WHERE nama = '" + nama + "'";
         else
+            conn.connect();
             query = "SELECT * FROM guru WHERE nik = '" + id + "' && password = '" + password + "'";
         try {
             Statement st = conn.con.createStatement();
@@ -39,25 +41,25 @@ public class TeacherController {
             while(rs.next()){
                 user.setNama(rs.getString("nama"));
                 user.setPassword(rs.getString("password"));
-                user.setNoTlp("no_tlp");
+                user.setNoTlp(rs.getString("no_telepon"));
                 user.setTipe(TipeUser.TEACHER);
-                user.setAjarKelas(getTaughtClasses(rs.getInt("id_guru")));
+//                user.setAjarKelas(getTaughtClasses(rs.getInt("id_guru")));
             }
         } catch(SQLException ex) {
-            
+            ex.printStackTrace();
         }
+        conn.disconnect();
         return user;
     }
     private ArrayList<Kelas> getTaughtClasses(int idGuru){
         ArrayList<Kelas> arrClasses = new ArrayList();
-        conn.connect();
         String query = "SELECT * FROM kelas WHERE id_guru = " + idGuru;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
                 ClassController cc = new ClassController();
-                Kelas taughtClass = cc.getKelas(rs.getInt("id_kelas"));
+                Kelas taughtClass = cc.getKelas(rs.getInt("id_kelas"), true);
                 arrClasses.add(taughtClass);
             }
         } catch(SQLException ex) {
@@ -151,6 +153,15 @@ public class TeacherController {
             }
         }
         return -1;
+    }
+    
+    public TeacherController(){
+        User guru = getUser("123", "pass", null);
+        System.out.println(guru.getNama());
+    }
+    
+    public static void main(String[] args) {
+        new TeacherController();
     }
 
 }

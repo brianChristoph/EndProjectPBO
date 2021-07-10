@@ -57,8 +57,8 @@ public class DatabaseController {
         ArrayList<Posting> arrPosts = new ArrayList();
         try {
             String queryPost = "SELECT * FROM post WHERE id_kelas = " + idKelas;
-            Statement stmtPost = conn.con.createStatement();
-            ResultSet rPost = stmtPost.executeQuery(queryPost);
+            Statement st = conn.con.createStatement();
+            ResultSet rPost = st.executeQuery(queryPost);
             while(rPost.next()){
                 Posting post = new Posting();
                 post.setJudul(rPost.getString("judul"));
@@ -66,8 +66,7 @@ public class DatabaseController {
                 arrPosts.add(post);
             }
             String queryTugas = "SELECT * FROM tugas WHERE id_kelas = " + idKelas;
-            Statement stmtTugas = conn.con.createStatement();
-            ResultSet rTugas = stmtTugas.executeQuery(queryTugas);
+            ResultSet rTugas = st.executeQuery(queryTugas);
             while(rTugas.next()){
                 Tugas tgs = new Tugas();
                 tgs.setJudul(rTugas.getString("judul"));

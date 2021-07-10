@@ -26,6 +26,7 @@ public class MuridController {
     DatabaseHandler conn = new DatabaseHandler();
     
     public User getUser(String id, String password, int idMurid){
+        conn.connect();
         Murid user = new Murid();
         String query = "";
         if(idMurid != 0)
