@@ -25,9 +25,13 @@ public class MuridController {
     ArrayList<Kelas> arrKelas = new ArrayList();
     DatabaseHandler conn = new DatabaseHandler();
     
-    public User getUser(String id, String password){
+    public User getUser(String id, String password, int idMurid){
         Murid user = new Murid();
-        String query = "SELECT * FROM murid WHERE nip = '" + id + "' && password = '" + password + "'";
+        String query = "";
+        if(idMurid != 0)
+            query = "SELECT * FROM murid WHERE id_murid = " + idMurid;
+        else
+            query = "SELECT * FROM murid WHERE nip = '" + id + "' && password = '" + password + "'";
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
