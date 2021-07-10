@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author BRCS
  */
 public class OrangTua extends User implements StudentInformation {
-
+    private String NIP;
     private ArrayList<Murid> anak = new ArrayList<Murid>();
 
     public ArrayList<Murid> getAnak() {
@@ -49,6 +49,14 @@ public class OrangTua extends User implements StudentInformation {
     @Override
     public void lihatGuruPengajar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getNIP() {
+        return NIP;
+    }
+
+    public void setNIP(String NIP) {
+        this.NIP = NIP;
     }
 
 }

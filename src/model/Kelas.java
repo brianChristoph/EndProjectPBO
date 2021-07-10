@@ -14,11 +14,23 @@ import java.util.HashMap;
  * @author BRCS
  */
 public class Kelas {
-    
+
+    private String nama;
+    private String kode;
+    private String jadwal;
     private ArrayList<Murid> arrMurid = new ArrayList();
     private Guru homeRoomTeacher = new Guru();
     private ArrayList<Posting> arrPost = new ArrayList();
     private ArrayList<Absensi> arrAbsensiMurid = new ArrayList();
+
+    public Kelas() {
+    }
+
+    public Kelas(String nama, String kode, String jadwal) {
+        this.nama = nama;
+        this.kode = kode;
+        this.jadwal = jadwal;
+    }
 
     public ArrayList<Murid> getArrMurid() {
         return arrMurid;
@@ -51,13 +63,33 @@ public class Kelas {
     public void setArrAbsensiMurid(ArrayList<Absensi> arrAbsensiMurid) {
         this.arrAbsensiMurid = arrAbsensiMurid;
     }
-    
-    public Kelas(){
-        
-    }
-    
-    public void addMurid(Murid student){
+
+    public void addMurid(Murid student) {
         this.arrMurid.add(student);
     }
-            
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getKode() {
+        return kode;
+    }
+
+    public void setKode(String kode) {
+        this.kode = kode;
+    }
+
+    public String getJadwal() {
+        return jadwal;
+    }
+
+    public void setJadwal(String jadwal) {
+        this.jadwal = jadwal;
+    }
+
 }

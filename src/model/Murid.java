@@ -12,10 +12,18 @@ import java.util.ArrayList;
  * @author BRCS
  */
 public class Murid extends User implements StudentInformation {
-    
+    private String NIP;
     private ArrayList<Kelas> listKelas = new ArrayList();
     private double SPP;
     private int angkatan;
+
+    public String getNIP() {
+        return NIP;
+    }
+
+    public void setNIP(String NIP) {
+        this.NIP = NIP;
+    }
 
     public ArrayList<Kelas> getListKelas() {
         return listKelas;

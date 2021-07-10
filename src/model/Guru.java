@@ -12,9 +12,17 @@ import java.util.ArrayList;
  * @author BRCS
  */
 public class Guru extends User implements ClassAdministrator {
-    
+    private String nik;
     private ArrayList<Kelas> ajarKelas = new ArrayList();
 
+    public String getNik() {
+        return nik;
+    }
+
+    public void setNik(String nik) {
+        this.nik = nik;
+    }
+    
     public ArrayList<Kelas> getAjarKelas() {
         return ajarKelas;
     }
