@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import model.*;
 
@@ -48,15 +47,17 @@ public class DatabaseController {
     }
 
     public DatabaseController() {
-        initializeAdmin();
+//        initializeAdmin();
+        takeUser(TipeUser.ADMIN, "112233", "admin");
     }
     
     public Kelas takeKelas(int idKelas){
-        String query = "SELECT * FROM kelas WHERE id_kelas = " + idKelas;
         conn.connect();
+        String query = "SELECT * FROM kelas WHERE id_kelas = " + idKelas;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
+            ArrayList<Kelas> arrKelas = makeArrayListKelas(st, 0, true);
             Kelas dBaseKelas = new Kelas();
             /**
              * dBaseKelas.setHomeRoomTeacher
@@ -64,53 +65,39 @@ public class DatabaseController {
              * dBaseKelas.setArrPost
              * dBaseKelas.setArrAbsensi
              */
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("eror" + e);
         }
         return null;
     }
     
-    public String makeQuery(TipeUser tipe){
+    public String makeQuery(TipeUser tipe, String id, String pass){
         switch(tipe){
             case STUDENT:
-                return "SELECT * FROM murid";
+                return "SELECT * FROM murid WHERE password = '" + pass + "'";
            case PARENT:
-                return "SELECT * FROM orang_tua";
+                return "SELECT * FROM orang_tua WHERE password = '" + pass + "'";
             case TEACHER:
-                return "SELECT * FROM guru";
+                return "SELECT * FROM guru WHERE password = '" + pass + "'";
             case ADMIN:
-                return "SELECT * FROM admin";
+                return "SELECT * FROM admin WHERE password = '" + pass + "'";
             default:
                 return null;
         }
     }
     
     public User takeUser(TipeUser tipe, String id, String pass){
-        String query = "";
-        switch(tipe){
-            case STUDENT:
-                query = "SELECT * FROM murid WHERE nip = '" + id +  "' AND password = '" + pass + "'";
-                break;
-            case PARENT:
-                query = "SELECT * FROM murid WHERE nip = '" + id +  "' AND password = '" + pass + "'";
-                break;
-            case TEACHER:
-                query = "SELECT * FROM murid WHERE nik = '" + id +  "' AND password = '" + pass + "'";
-                break;
-            case ADMIN:
-                query = "SELECT * FROM admin WHERE nik = '" + id +  "' AND password = '" + pass + "'";
-                break;
-            default:
-                break;
-        }
+        String query = makeQuery(tipe, id, pass);
+        System.out.println(query);
         conn.connect();
         try{
-            String nama, password, noTlp, id_user;
-            int uang_sekolah, id_ortu;
+//            String nama, password, noTlp, id_user;
+//            int uang_sekolah, id_ortu;
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
             switch(tipe){
                 case STUDENT:
+                    System.out.println("Hallo");
                     Murid m = new Murid();
 //                    m.setId(rs.getString("nip"));
                     m.setNama(rs.getString("nama"));
@@ -120,34 +107,20 @@ public class DatabaseController {
                     m.setTipe(TipeUser.STUDENT);
                     return m;
                 case PARENT:
+                    System.out.println("Hallo");
                     OrangTua ot = new OrangTua();
                     ot.setNama(rs.getString("nama"));
                     ot.setPassword(rs.getString("password"));
                     ot.setNoTlp("no_tlp");
                     ot.setTipe(TipeUser.PARENT);
                 case TEACHER:
+                    System.out.println("Hallo");
                     Guru g = new Guru();
                     g.setNama(rs.getString("nama"));
                     g.setPassword(rs.getString("password"));
                     g.setNoTlp("no_tlp");
                     g.setTipe(TipeUser.TEACHER);
-                    
-                    ArrayList<Kelas> arrKelas = new ArrayList();
-                    int id_guru = rs.getInt("id_guru");
-                    
-                    String queryKelas = "SELECT * FROM kelas";
-                    rs = st.executeQuery(queryKelas);
-                    
-                    while (rs.next()) {
-                        if(rs.getInt("id_guru") == id_guru){
-                            Kelas ajarKelas = new Kelas();
-                            ajarKelas.setHomeRoomTeacher(g);
-                            // absensi
-                            // post
-                            // murid
-                        }
-                    }
-                    
+                    g.setAjarKelas(makeArrayListKelas(st, rs.getInt("id_guru"), false));
                 case ADMIN:
                     Admin a = new Admin();
                     a.setNama(rs.getString("nama"));
@@ -155,18 +128,23 @@ public class DatabaseController {
                     a.setNoTlp(rs.getString("no_tlp"));
                     a.setNik(rs.getString("nik"));
                     a.setTipe(TipeUser.ADMIN);
+                    System.out.println(a.getNama());
                 default:
                     break;
             }
-        } catch(Exception e){
+        } catch(SQLException e){
             
         }
         return null;
     }
     
-    private ArrayList<Kelas> makeArrayListKelas(Statement st){
+    private ArrayList<Kelas> makeArrayListKelas(Statement st, int idGuru, boolean allClass){
         ArrayList<Kelas> arrK = new ArrayList();
-        String query = "SELECT * FROM kelas";
+        String query;
+        if(allClass == true)
+            query = "SELECT * FROM kelas";
+        else
+            query = "SELECT * FROM kelas WHERE id_guru = " + idGuru;
         try{
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
@@ -177,7 +155,7 @@ public class DatabaseController {
                 k.setArrMurid(makeArrayListMurid(st, rs.getInt("id_kelas")));
                 arrK.add(k);
             }
-        } catch (Exception e) {
+        } catch (SQLException ex) {
             // error message
         }
         return arrK;
@@ -193,7 +171,7 @@ public class DatabaseController {
             g.setPassword(rs.getString("password"));
             g.setNoTlp(rs.getString("no_telepon"));
             g.setTipe(TipeUser.TEACHER);
-        } catch(Exception e) {
+        } catch(SQLException e) {
             
         }
         return g;
@@ -210,7 +188,7 @@ public class DatabaseController {
                 p.setJudul(rs.getString("judul"));
                 arrP.add(p);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             // error message
         }
         return arrP;
@@ -231,7 +209,7 @@ public class DatabaseController {
                 m.setTipe(TipeUser.STUDENT);
                 arrM.add(m);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             // error message
         }
         return arrM;
@@ -248,7 +226,7 @@ public class DatabaseController {
                 a.setHadir((rs.getInt("hadir") == 1)? StatusAbsensi.HADIR : StatusAbsensi.ALPHA);
                 arrA.add(a);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             // error message
         }
         return arrA;
@@ -265,10 +243,14 @@ public class DatabaseController {
                 t.setTanggalPengumpulan(rs.getDate("tanggal_pengumpulan"));
                 arrT.add(t);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             
         }
         return arrT;
+    }
+    
+    public static void main(String[] args){
+        new DatabaseController();
     }
     
 }
