@@ -5,8 +5,10 @@
  */
 package controller;
 
-import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import model.User;
 import model.Guru;
@@ -22,6 +24,30 @@ public class TeacherController {
 
     ArrayList<Kelas> arrKelas = new ArrayList();
     DatabaseHandler conn = new DatabaseHandler();
+    
+    // Take From Database
+    public Guru getUser(String id, String password, int idGuru){
+        Guru user = new Guru();
+        String query = "";
+        if(idGuru != 0)
+            query = "SELECT * FROM admin WHERE id_guru = " + idGuru;
+        else
+            query = "SELECT * FROM guru WHERE nik = '" + id + "' && password = '" + password + "'";
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                user.setNama(rs.getString("nama"));
+                user.setPassword(rs.getString("password"));
+                user.setNoTlp("no_tlp");
+                user.setTipe(TipeUser.TEACHER);
+//                user.setAjarKelas(makeArrayListKelas(st, false, rs.getInt("id_guru")));
+            }
+        } catch(SQLException ex) {
+            
+        }
+        return user;
+    }
 
     private boolean isTeacher(User pengguna) {
         if (pengguna instanceof Guru) {
