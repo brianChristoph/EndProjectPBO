@@ -24,12 +24,12 @@ public class StudentDashboard {
         head.setVisible(true);
         Buttons button = new Buttons();
         
-        button.classes.setLocation(75, 306);
-        button.calendar.setLocation(498, 306);
-        button.teachers.setLocation(75, 512);
-        button.report.setLocation(498, 512);
-        button.attandance.setLocation(75, 718);
-        button.announcement.setLocation(498, 718);
+        button.classes.setLocation(56, 229);
+        button.calendar.setLocation(246, 229);
+        button.teachers.setLocation(56, 384);
+        button.report.setLocation(246, 384);
+        button.attandance.setLocation(56, 574);
+        button.announcement.setLocation(246, 574);
         
         f.add(button.classes);
         f.add(button.calendar);
