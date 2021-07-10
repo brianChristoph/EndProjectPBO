@@ -48,7 +48,9 @@ public class DatabaseController {
 
     public DatabaseController() {
 //        initializeAdmin();
-        takeUser(TipeUser.ADMIN, "112233", "admin");
+//        User user = getUser(TipeUser.TEACHER, "123", "pass");
+//        User user = getUser(TipeUser.ADMIN, "112233", "admin");
+//        System.out.println(user.getNama());
     }
     
     public Kelas takeKelas(int idKelas){
@@ -74,66 +76,66 @@ public class DatabaseController {
     public String makeQuery(TipeUser tipe, String id, String pass){
         switch(tipe){
             case STUDENT:
-                return "SELECT * FROM murid WHERE password = '" + pass + "'";
-           case PARENT:
-                return "SELECT * FROM orang_tua WHERE password = '" + pass + "'";
+                return "SELECT * FROM murid WHERE nip = '" + id + "' && password = '" + pass + "'";
+            case PARENT:
+                return "SELECT * FROM orang_tua WHERE nip = '" + id + "' && password = '" + pass + "'";
             case TEACHER:
-                return "SELECT * FROM guru WHERE password = '" + pass + "'";
+                return "SELECT * FROM guru WHERE nik = '" + id + "' && password = '" + pass + "'";
             case ADMIN:
-                return "SELECT * FROM admin WHERE password = '" + pass + "'";
+                return "SELECT * FROM admin WHERE nik='" + id + "' && password='" + pass + "'";
             default:
                 return null;
         }
     }
     
-    public User takeUser(TipeUser tipe, String id, String pass){
+    public User getUser(TipeUser tipe, String id, String pass){
+        conn.connect();
         String query = makeQuery(tipe, id, pass);
         System.out.println(query);
-        conn.connect();
-        try{
-//            String nama, password, noTlp, id_user;
-//            int uang_sekolah, id_ortu;
+        try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            switch(tipe){
-                case STUDENT:
-                    System.out.println("Hallo");
-                    Murid m = new Murid();
-//                    m.setId(rs.getString("nip"));
-                    m.setNama(rs.getString("nama"));
-                    m.setPassword(rs.getString("password"));
-                    m.setSPP(rs.getInt("uang_sekolah"));
-                    m.setNoTlp("no_tlp");
-                    m.setTipe(TipeUser.STUDENT);
-                    return m;
-                case PARENT:
-                    System.out.println("Hallo");
-                    OrangTua ot = new OrangTua();
-                    ot.setNama(rs.getString("nama"));
-                    ot.setPassword(rs.getString("password"));
-                    ot.setNoTlp("no_tlp");
-                    ot.setTipe(TipeUser.PARENT);
-                case TEACHER:
-                    System.out.println("Hallo");
-                    Guru g = new Guru();
-                    g.setNama(rs.getString("nama"));
-                    g.setPassword(rs.getString("password"));
-                    g.setNoTlp("no_tlp");
-                    g.setTipe(TipeUser.TEACHER);
-                    g.setAjarKelas(makeArrayListKelas(st, rs.getInt("id_guru"), false));
-                case ADMIN:
-                    Admin a = new Admin();
-                    a.setNama(rs.getString("nama"));
-                    a.setPassword(rs.getString("password"));
-                    a.setNoTlp(rs.getString("no_tlp"));
-                    a.setNik(rs.getString("nik"));
-                    a.setTipe(TipeUser.ADMIN);
-                    System.out.println(a.getNama());
-                default:
-                    break;
+            while(rs.next()){
+                switch(tipe){
+                    case STUDENT:
+                        Murid murid = new Murid();
+    //                    murid.setId(rs.getInt("ID/"));
+                        murid.setNama(rs.getString("nama"));
+                        murid.setPassword(rs.getString("password"));
+                        murid.setNoTlp(rs.getString("no_telepon"));
+                        murid.setSPP(rs.getInt("uang_sekolah"));
+                        murid.setTipe(TipeUser.STUDENT);
+                        return murid;
+                    case PARENT:
+                        OrangTua orangTua = new OrangTua();
+                        orangTua.setNama(rs.getString("nama"));
+                        orangTua.setPassword(rs.getString("password"));
+                        orangTua.setNoTlp("no_tlp");
+                        orangTua.setTipe(TipeUser.PARENT);
+                        return orangTua;
+                    case TEACHER:
+                        Guru guru = new Guru();
+                        guru.setNama(rs.getString("nama"));
+                        guru.setPassword(rs.getString("password"));
+                        guru.setNoTlp("no_tlp");
+                        guru.setTipe(TipeUser.TEACHER);
+                        guru.setAjarKelas(makeArrayListKelas(st, rs.getInt("id_guru"), false));
+                        return guru;
+                    case ADMIN:
+                        Admin admin = new Admin();
+    //                    admin.setId(rs.getInt("ID"));
+                        admin.setNama(rs.getString("nama"));
+                        admin.setPassword(rs.getString("password"));
+                        admin.setNoTlp(rs.getString("noTelp"));
+                        admin.setNik(rs.getString("nik"));
+                        admin.setTipe(TipeUser.ADMIN);
+                        return admin;
+                    default:
+                        break;
+                }
             }
         } catch(SQLException e){
-            
+            System.out.println("error");
         }
         return null;
     }
@@ -247,10 +249,6 @@ public class DatabaseController {
             
         }
         return arrT;
-    }
-    
-    public static void main(String[] args){
-        new DatabaseController();
     }
     
 }
