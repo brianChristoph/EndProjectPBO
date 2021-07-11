@@ -7,8 +7,12 @@ package view;
 
 /**
  *
- * @author BRCS
+ * @author jonat
  */
-public class TeacherMenu {
+public class PaymentMenu {
+
+    public PaymentMenu() {
+    }
+    
     
 }
