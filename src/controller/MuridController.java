@@ -28,9 +28,10 @@ public class MuridController {
         String query = "";
         if(idMurid != 0)
             query = "SELECT * FROM murid WHERE id_murid = " + idMurid;
-        else
+        else {
             conn.connect();
             query = "SELECT * FROM murid WHERE nip = '" + id + "' && password = '" + password + "'";
+        }
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
