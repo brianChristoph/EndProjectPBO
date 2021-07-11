@@ -16,6 +16,19 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import controller.AdminController;
+import controller.MuridController;
+import controller.ParentController;
+import controller.TeacherController;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import model.Admin;
+import model.Guru;
+import model.Murid;
+import model.OrangTua;
+import model.User;
+import model.UserManager;
 
 /**
  *
@@ -70,15 +83,7 @@ public class LoginScreen {
 
         Button login = new Button("Login");
         login.setBounds(121, 524, 189, 36);
-
-        login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new StudentDashboard();
-                f.setVisible(false);
-            }
-        });
-
+        
         f.add(identity);
         f.add(id);
         f.add(inputID);
@@ -89,5 +94,41 @@ public class LoginScreen {
         f.setSize(432, 768);
         f.setLayout(null);
         f.setVisible(true);
+        
+        login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Login Controller
+                User user = null;
+                if(option1.isSelected()){
+                    MuridController mc = new MuridController();
+                    user = (Murid)mc.getUser(inputID.getText(), new String(inputPassword.getPassword()), 0);
+                } else if (option2.isSelected()) {
+                    ParentController pc = new ParentController();
+                    user = (OrangTua)pc.getUser(inputID.getText(), new String(inputPassword.getPassword()));
+                } else if (option3.isSelected()) {
+                    TeacherController tc = new TeacherController();
+                    user = (Guru)tc.getUser(inputID.getText(), new String(inputPassword.getPassword()), null);
+                } else if (option4.isSelected()) {
+                    AdminController ac = new AdminController();
+                    user = (Admin)ac.getUser(inputID.getText(), new String(inputPassword.getPassword()));
+                }
+                UserManager.getInstance().setUser(user);
+                f.setVisible(false);
+                if(option1.isSelected()){
+                    new StudentDashboard();
+                } else if(option2.isSelected()){
+                    new ParentDashboard();
+                } else if(option3.isSelected()){
+                    new ClassMenu();
+                } else if(option4.isSelected()){
+                    new AdminDashboard();
+                }
+            }
+        });
+    }
+    
+    public static void main(String[] args) {
+        new LoginScreen();
     }
 }
