@@ -5,9 +5,15 @@
  */
 package controller;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import model.Kelas;
 import model.Murid;
+import model.OrangTua;
+import model.TipeUser;
 import model.User;
 
 /**
@@ -17,6 +23,32 @@ import model.User;
 public class MuridController {
     
     ArrayList<Kelas> arrKelas = new ArrayList();
+    DatabaseHandler conn = new DatabaseHandler();
+    
+    public User getUser(String id, String password, int idMurid){
+        conn.connect();
+        Murid user = new Murid();
+        String query = "";
+        if(idMurid != 0)
+            query = "SELECT * FROM murid WHERE id_murid = " + idMurid;
+        else
+            query = "SELECT * FROM murid WHERE nip = '" + id + "' && password = '" + password + "'";
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+//                    user.setId(rs.getInt("ID/"));
+                user.setNama(rs.getString("nama"));
+                user.setPassword(rs.getString("password"));
+                user.setNoTlp(rs.getString("no_telepon"));
+                user.setSPP(rs.getInt("uang_sekolah"));
+                user.setTipe(TipeUser.STUDENT);
+            }
+        } catch(SQLException ex) {
+            
+        }
+        return user;
+    }
     
     private boolean isMurid(User pengguna){
         if(pengguna instanceof Murid){

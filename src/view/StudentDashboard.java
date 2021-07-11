@@ -56,6 +56,7 @@ public class StudentDashboard {
         button.attandance.setLocation(56, 538);
         button.announcement.setLocation(243, 538);
         
+        
         f.add(button.classes);
         f.add(button.calendar);
         f.add(button.teachers);

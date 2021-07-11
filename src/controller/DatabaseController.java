@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import model.*;
 
 /**
@@ -46,47 +47,40 @@ public class DatabaseController {
     }
 
     public DatabaseController() {
-        initializeAdmin();
+//        initializeAdmin();
+//        User user = getUser(TipeUser.TEACHER, "123", "pass");
+//        User user = getUser(TipeUser.ADMIN, "112233", "admin");
+//        System.out.println(user.getNama());
     }
     
-    public Kelas takeKelas(int idKelas){
-        String query = "SELECT * FROM kelas WHERE id_kelas = " + idKelas;
-        conn.connect();
+    public ArrayList<Posting> getPosts(int idKelas){
+        ArrayList<Posting> arrPosts = new ArrayList();
         try {
+            String queryPost = "SELECT * FROM post WHERE id_kelas = " + idKelas;
             Statement st = conn.con.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            Kelas dBaseKelas = new Kelas();
-            /**
-             * dBaseKelas.setHomeRoomTeacher
-             * dBaseKelas.setArrMurid
-             * dBaseKelas.setArrPost
-             * dBaseKelas.setArrAbsensi
-             */
-        } catch (Exception e) {
-            System.out.println("eror" + e);
+            ResultSet rPost = st.executeQuery(queryPost);
+            while(rPost.next()){
+                Posting post = new Posting();
+                post.setJudul(rPost.getString("judul"));
+                post.setDeskripsi(rPost.getString("deskripsi"));
+                arrPosts.add(post);
+            }
+            String queryTugas = "SELECT * FROM tugas WHERE id_kelas = " + idKelas;
+            ResultSet rTugas = st.executeQuery(queryTugas);
+            while(rTugas.next()){
+                Tugas tgs = new Tugas();
+                tgs.setJudul(rTugas.getString("judul"));
+                tgs.setDeskripsi(rTugas.getString("deskripsi"));
+                tgs.setTanggalPengumpulan(rTugas.getDate("tanggal_pengumpulan"));
+                tgs.setTanggalDikumpulkan(rTugas.getDate("tanggal_dikumpulkan"));
+                tgs.setTerkumpulkan(rTugas.getInt("terkumpulkan")==1?true:false);
+                tgs.setNilai(rTugas.getInt("nilai"));
+                arrPosts.add(tgs);
+            }
+        } catch(SQLException ex) {
+            
         }
-        return null;
-    }
-    
-    public User takeUser(TipeUser tipe){
-        String query = "";
-        switch(tipe){
-            case STUDENT:
-                query = "SELECT * FROM murid HWERE";
-                break;
-            case PARENT:
-                query = "SELECT * FROM orang_tua WHERE";
-                break;
-            case TEACHER:
-                query = "SELECT * FROM guru WHERE";
-                break;
-            case ADMIN:
-                query = "SELECT * FROM admin WHERE";
-                break;
-            default:
-                break;
-        }
-        return null;
+        return arrPosts;
     }
     
 }

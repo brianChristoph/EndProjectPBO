@@ -18,6 +18,9 @@ public class Admin extends User implements ClassAdministrator {
         this.nik = nik;
     }
 
+    public Admin() {
+    }
+
     public String getNik() {
         return nik;
     }
