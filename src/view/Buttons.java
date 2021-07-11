@@ -21,25 +21,27 @@ public class Buttons {
     JButton calendar = new JButton ("Calendar");
     JButton teachers = new JButton ("Teachers");
     JButton report = new JButton ("Report");
-
+    JButton back = new JButton ("Back");
     public Buttons() {
-        manageUsers.setSize(175, 159);
+        manageUsers.setSize(131, 120);
         
-        manageClasses.setSize(175, 159);
+        manageClasses.setSize(131, 120);
         
-        announcement.setSize(175, 159);
+        announcement.setSize(131, 120);
         
-        attandance.setSize(175, 159);
+        attandance.setSize(131, 120);
         
-        classes.setSize(175, 159);
+        classes.setSize(131, 120);
         
-        payment.setSize(175, 159);
+        payment.setSize(131, 120);
         
-        calendar.setSize(175, 159);
+        calendar.setSize(131, 120);
         
-        teachers.setSize(175, 159);
+        teachers.setSize(131, 120);
         
-        report.setSize(175, 159);
+        report.setSize(131, 120);
+        
+        back.setSize(81,36);
     }
     
     
