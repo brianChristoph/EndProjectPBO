@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,20 +18,43 @@ public class StudentDashboard {
 
     public StudentDashboard() {
         JFrame f = new JFrame("Student Dashboard");
+        
         Header header = new Header("Hi","Jo");
         JPanel head = header.getHeader();
-        head.setLocation(0, 0);
+        head.setLocation(0, 0); 
         f.add(head);
+        
         head.setLayout(null);
         head.setVisible(true);
         Buttons button = new Buttons();
         
-        button.classes.setLocation(75, 306);
-        button.calendar.setLocation(498, 306);
-        button.teachers.setLocation(75, 512);
-        button.report.setLocation(498, 512);
-        button.attandance.setLocation(75, 718);
-        button.announcement.setLocation(498, 718);
+        button.classes.setLocation(56, 230);
+        button.classes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                f.add(Header.header);
+                
+            }
+        });
+        
+        button.calendar.setLocation(243, 230);
+        button.calendar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                new CalendarMenu();
+            }
+        });
+        
+        button.teachers.setLocation(56, 384);
+        button.teachers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TeachersMenu();
+            }
+        });
+        button.report.setLocation(243, 384);
+        button.attandance.setLocation(56, 538);
+        button.announcement.setLocation(243, 538);
         
         f.add(button.classes);
         f.add(button.calendar);
@@ -42,5 +67,7 @@ public class StudentDashboard {
         f.setLayout(null);
         f.setVisible(true);
     }
-    
+    public static void main(String[] args) {
+        new StudentDashboard();
+    }
 }

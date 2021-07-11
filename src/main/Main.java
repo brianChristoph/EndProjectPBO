@@ -5,14 +5,12 @@
  */
 package main;
 import view.LoginScreen;
-import view.StudentDashboard;
 /**
  *
  * @author jonat
  */
 public class Main {
     public static void main(String[] args) {
-//        new LoginScreen();
-        new StudentDashboard();
+        new LoginScreen();
     }
 }
