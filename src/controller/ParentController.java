@@ -22,7 +22,7 @@ public class ParentController {
     DatabaseHandler conn = new DatabaseHandler();
     
     // Take User From dBase
-    public User getUser(String id, String password){
+    public OrangTua getUser(String id, String password){
         conn.connect();
         OrangTua user = new OrangTua();
         String query = "SELECT * FROM orang_tua WHERE nip = '" + id + "' && password = '" + password + "'";
