@@ -5,20 +5,26 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author BRCS
  */
 public class OrangTua extends User implements StudentInformation {
     private String NIP;
-    private Murid anak = new Murid();
+    private ArrayList<Murid> anak = new ArrayList<Murid>();
 
-    public Murid getAnak() {
+    public ArrayList<Murid> getAnak() {
         return anak;
     }
 
-    public void setAnak(Murid anak) {
+    public void setAnak(ArrayList<Murid> anak) {
         this.anak = anak;
+    }
+
+    public void addAnak(Murid anak) {
+        this.anak.add(anak);
     }
 
     public void bayarSPP() {
