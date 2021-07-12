@@ -43,6 +43,7 @@ public class ReportView {
             f.setLayout(null);
             f.setVisible(true);
         } catch (NullPointerException e) {
+            e.printStackTrace();
             ErrorView.printError("No Data");
         }
 
