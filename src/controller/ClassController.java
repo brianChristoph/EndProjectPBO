@@ -91,4 +91,8 @@ public class ClassController {
         return arrMurid;
     }
     
+    public void createClass(){
+        
+    }
+    
 }
