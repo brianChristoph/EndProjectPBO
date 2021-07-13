@@ -18,7 +18,6 @@ import model.Kelas;
 import model.Murid;
 import model.User;
 import model.UserManager;
-import model.VisitedClass;
 
 /**
  *
@@ -52,27 +51,20 @@ public class ClassMenu {
 //        JScrollPane scrollableTextArea = new JScrollPane(f); 
 //        scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 //        f.getContentPane().add(scrollableTextArea);
-        
-        // HardCode Cuz Dbase is not functioning
-//        ArrayList<Kelas> arrKelas = new ArrayList();
-//        Kelas k1 = new Kelas();
-//        k1.setNama("mat");
-//        k1.setJadwal("Senin, 1-2");
-//        Kelas k2 = new Kelas();
-//        k2.setNama("fis");
-//        k2.setJadwal("Selasa, 1-2");
-//        arrKelas.add(k1);
-//        arrKelas.add(k2);
+
+        ArrayList<Kelas> arrK = new ArrayList();
+        Kelas k = new Kelas();
+        k.setNama("pbo");
+        k.setJadwal("senin");
+        arrK.add(k);
         
         User user = UserManager.getInstance().getUser();
         if(user instanceof Murid){
             Murid murid = (Murid) user;
-//            murid.setListKelas(arrKelas);
             f = showListKelas(murid.getListKelas(), f);
         } else if (user instanceof Guru){
-            System.out.println("hello");
             Guru guru = (Guru) user;
-//            guru.setAjarKelas(arrKelas);
+            guru.setAjarKelas(arrK);
             f = showListKelas(guru.getAjarKelas(), f);
         }
 

@@ -50,9 +50,9 @@ public class ClassController {
     }
     
     public Kelas getKelas(int idKelas, boolean makingArray){
-//        if(makingArray == false){
+        if(makingArray == false){
             conn.connect();
-//        }
+        }
         Kelas kls = new Kelas();
         String query = "SELECT * FROM kelas WHERE id_kelas = " + idKelas;
         try {
