@@ -27,16 +27,16 @@ public class ReportView {
             ArrayList<Kelas> reports = controller.getReportsFromDB();
 
             int tambah = 253;
-            int tambahJadwal = 277;
+            int tambahNilai = 277;
             for (int i = 0; i < reports.size(); i++) {
                 JLabel kelas = new JLabel("Kelas " + reports.get(i).getNama());
-                JLabel jadwal = new JLabel("Nilai " + reports.get(i).getNa());
+                JLabel nilai = new JLabel("Nilai " + reports.get(i).getNa());
                 kelas.setBounds(46, tambah, 108, 12);
-                jadwal.setBounds(70, tambahJadwal, 235, 12);
+                nilai.setBounds(70, tambahNilai, 235, 12);
                 tambah += 60;
-                tambahJadwal += 60;
+                tambahNilai += 60;
                 f.add(kelas);
-                f.add(jadwal);
+                f.add(nilai);
 
             }
 

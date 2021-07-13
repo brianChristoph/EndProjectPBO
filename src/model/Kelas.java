@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -20,83 +21,92 @@ public class Kelas {
     private ArrayList<Murid> arrMurid = new ArrayList();
     private Guru homeRoomTeacher = new Guru();
     private ArrayList<Posting> arrPost = new ArrayList();
-    private ArrayList<Absensi> arrAbsensiMurid = new ArrayList();
+    private HashMap<Murid, Absensi> listAbsensiMurid = new HashMap<>();
+    private ArrayList<HashMap> absensi = new ArrayList<>();
 
     public Kelas() {
     }
 
+    public HashMap<Murid, Absensi> getListAbsensiMurid() {
+	return listAbsensiMurid;
+    }
+
+    public void setListAbsensiMurid(HashMap<Murid, Absensi> listAbsensiMurid) {
+	this.listAbsensiMurid = listAbsensiMurid;
+    }
+
+    public ArrayList<HashMap> getAbsensi() {
+	return absensi;
+    }
+
+    public void setAbsensi(ArrayList<HashMap> absensi) {
+	this.absensi = absensi;
+    }
+
     public Kelas(String nama, String kode, String jadwal) {
-        this.nama = nama;
-        this.kode = kode;
-        this.jadwal = jadwal;
+	this.nama = nama;
+	this.kode = kode;
+	this.jadwal = jadwal;
     }
 
     public double getNa() {
-        return na;
+	return na;
     }
 
     public void setNa(double na) {
-        this.na = na;
+	this.na = na;
     }
 
     public ArrayList<Murid> getArrMurid() {
-        return arrMurid;
+	return arrMurid;
     }
 
     public void setArrMurid(ArrayList<Murid> arrMurid) {
-        this.arrMurid = arrMurid;
+	this.arrMurid = arrMurid;
     }
 
     public Guru getHomeRoomTeacher() {
-        return homeRoomTeacher;
+	return homeRoomTeacher;
     }
 
     public void setHomeRoomTeacher(Guru homeRoomTeacher) {
-        this.homeRoomTeacher = homeRoomTeacher;
+	this.homeRoomTeacher = homeRoomTeacher;
     }
 
     public ArrayList<Posting> getArrPost() {
-        return arrPost;
+	return arrPost;
     }
 
     public void setArrPost(ArrayList<Posting> arrPost) {
-        this.arrPost = arrPost;
-    }
-
-    public ArrayList<Absensi> getArrAbsensiMurid() {
-        return arrAbsensiMurid;
-    }
-
-    public void setArrAbsensiMurid(ArrayList<Absensi> arrAbsensiMurid) {
-        this.arrAbsensiMurid = arrAbsensiMurid;
+	this.arrPost = arrPost;
     }
 
     public void addMurid(Murid student) {
-        this.arrMurid.add(student);
+	this.arrMurid.add(student);
     }
 
     public String getNama() {
-        return nama;
+	return nama;
     }
 
     public void setNama(String nama) {
-        this.nama = nama;
+	this.nama = nama;
     }
 
     public String getKode() {
-        return kode;
+	return kode;
     }
 
     public void setKode(String kode) {
-        this.kode = kode;
+	this.kode = kode;
     }
 
     public String getJadwal() {
-        return jadwal;
+	return jadwal;
     }
 
     public void setJadwal(String jadwal) {
-        this.jadwal = jadwal;
+	this.jadwal = jadwal;
     }
 
 }

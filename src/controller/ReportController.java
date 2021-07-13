@@ -70,7 +70,6 @@ public class ReportController {
                         ArrayList<Tugas> listTugas = new ArrayList<>();
                         Kelas newKelas = new Kelas();
                         newKelas.setNama(rs2.getString("nama"));
-                        newKelas.setNa(hitungRataRata(listTugas));
 
                         String query3 = "SELECT `nilai` FROM `tugas` WHERE id_kelas = " + rs.getInt("id_kelas") + " AND id_murid = " + id;
                         Statement st3 = conn.con.createStatement();
