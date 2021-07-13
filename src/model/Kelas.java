@@ -15,6 +15,7 @@ import java.util.HashMap;
  */
 public class Kelas {
 
+    private int id;
     private String nama;
     private String kode;
     private String jadwal;
@@ -30,6 +31,14 @@ public class Kelas {
         this.nama = nama;
         this.kode = kode;
         this.jadwal = jadwal;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public ArrayList<Murid> getArrMurid() {
