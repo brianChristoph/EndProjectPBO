@@ -33,8 +33,9 @@ public class StudentDashboard {
         button.classes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                f.add(Header.header);
                 f.setVisible(false);
-                //new classView
+                new ClassMenu();
             }
         });
 

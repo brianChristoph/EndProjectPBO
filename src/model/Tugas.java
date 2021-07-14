@@ -12,7 +12,8 @@ import java.util.Date;
  * @author BRCS
  */
 public class Tugas extends Posting {
-
+    
+    private int idMurid;
     private double nilai;
     private Date tanggalPengumpulan;
     private Date tanggalDikumpulkan;
@@ -54,4 +55,12 @@ public class Tugas extends Posting {
         this.terkumpulkan = terkumpulkan;
     }
 
+    public int getIdMurid() {
+        return idMurid;
+    }
+
+    public void setIdMurid(int idMurid) {
+        this.idMurid = idMurid;
+    }
+    
 }

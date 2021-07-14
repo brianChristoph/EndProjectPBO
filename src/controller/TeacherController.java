@@ -94,6 +94,7 @@ public class TeacherController {
             ResultSet rPost = st.executeQuery(queryPost);
             while(rPost.next()){
                 Posting post = new Posting();
+                post.setId(rPost.getInt("id_post"));
                 post.setJudul(rPost.getString("judul"));
                 post.setDeskripsi(rPost.getString("deskripsi"));
                 arrPosts.add(post);
@@ -102,6 +103,8 @@ public class TeacherController {
             ResultSet rTugas = st.executeQuery(queryTugas);
             while(rTugas.next()){
                 Tugas tgs = new Tugas();
+                tgs.setId(rTugas.getInt("id_tugas"));
+                tgs.setIdMurid(rTugas.getInt("id_murid"));
                 tgs.setJudul(rTugas.getString("judul"));
                 tgs.setDeskripsi(rTugas.getString("deskripsi"));
                 tgs.setTanggalPengumpulan(rTugas.getDate("tanggal_pengumpulan"));
@@ -132,7 +135,7 @@ public class TeacherController {
         return arrStudents;
     }
     
-    private Murid getStudent(int idMurid){
+    public Murid getStudent(int idMurid){
         Murid murid = new Murid();
         String query = "SELECT * FROM murid WHERE id_murid = " + idMurid;
         try {
@@ -167,18 +170,32 @@ public class TeacherController {
         return arrAbsensi;
     }
 
-    public void createNewPost(User pengguna, int idKelas, String judul, String post) {
-        if (pengguna.getTipe().TEACHER == TipeUser.TEACHER) {
-                String query = "INSERT INTO `post`(`judul`, `deskripsi`) VALUES (?,?)";
-            try {
-                PreparedStatement st = conn.con.prepareStatement(query);
-                st.setString(1, judul);
-                st.setString(2, post);
-                st.executeUpdate();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+    public void createNewPost(int idKelas, String judul, String post) {
+        String query = "INSERT INTO `post`(`judul`, `deskripsi`) VALUES (?,?)";
+        try {
+            PreparedStatement st = conn.con.prepareStatement(query);
+            st.setString(1, judul);
+            st.setString(2, post);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+        updateClassData((Guru)UserManager.getInstance().getUser(), idKelas);
+    }
+    
+    public void createNewTugas(int idKelas, String judul, String deskripsi, Date deadline){
+        String query = "INSERT INTO `tugas`(`judul`, `deskripsi`, `tanggal_pengumpulan`, `id_kelas`) VALUES (?,?,?,?)";
+        try {
+            PreparedStatement st = conn.con.prepareStatement(query);
+            st.setString(1, judul);
+            st.setString(2, deskripsi);
+            st.setDate(3, (java.sql.Date) deadline);
+            st.setInt(4, idKelas);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        updateClassData((Guru)UserManager.getInstance().getUser(), idKelas);
     }
     
     public void updateClassData(Guru pengguna, int idKelas){
@@ -211,8 +228,7 @@ public class TeacherController {
 
     public void inputGrade(Guru pengguna, int idKelas, int idTugas, int idMurid, int nilai) {
         conn.connect();
-        String query = "UPDATE tugas SET nilai = " + nilai + 
-                "tanggal = '" + new Date() +
+        String query = "UPDATE tugas SET nilai = " + nilai +
                 "' WHERE id_tugas = " + idTugas + " && id_murid = " + idMurid;
         try {
             Statement st = conn.con.createStatement();

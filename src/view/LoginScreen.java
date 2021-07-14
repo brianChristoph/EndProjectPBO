@@ -16,7 +16,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import controller.AdminController;
-import controller.MainController;
 import controller.MuridController;
 import controller.ParentController;
 import controller.TeacherController;
