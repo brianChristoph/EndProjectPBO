@@ -45,8 +45,8 @@ public class ClassMenu {
             addKelas.addActionListener(new ActionListener(){
                 @Override
                 public void actionPerformed(ActionEvent e){
-                    new CreateNewClass();
                     frame.setVisible(false);
+                    new CreateNewClass();
                 }
             });
             
@@ -84,8 +84,8 @@ public class ClassMenu {
                 newButton[i].addActionListener(new ActionListener() {
                    @Override
                    public void actionPerformed(ActionEvent e) {
-                       createViewClass(tempClass);
                        frame.setVisible(false);
+                       createViewClass(tempClass);
                    }
                 });
             }
