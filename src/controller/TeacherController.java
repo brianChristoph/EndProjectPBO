@@ -75,7 +75,7 @@ public class TeacherController {
                 taughtClass.setNama(rs.getString("nama"));
                 taughtClass.setJadwal(rs.getString("jadwal"));
                 taughtClass.setHomeRoomTeacher(user);
-                taughtClass.setArrAbsensiMurid(getAbsensiMurid(rs.getInt("id_kelas")));
+//                taughtClass.setArrAbsensiMurid(getAbsensiMurid(rs.getInt("id_kelas")));
                 taughtClass.setArrPost(getPosts(rs.getInt("id_kelas")));
                 taughtClass.setArrMurid(getStudentsInClass(rs.getInt("id_kelas")));
                 arrClasses.add(taughtClass);
@@ -186,7 +186,7 @@ public class TeacherController {
             if(pengguna.getAjarKelas().get(i) != null){
                 if(pengguna.getAjarKelas().get(i).getId() == idKelas){
                     pengguna.getAjarKelas().get(i).setArrPost(getPosts(idKelas));
-                    pengguna.getAjarKelas().get(i).setArrAbsensiMurid(getAbsensiMurid(idKelas));
+//                    pengguna.getAjarKelas().get(i).setArrAbsensiMurid(getAbsensiMurid(idKelas));
                     pengguna.getAjarKelas().get(i).setArrMurid(getStudentsInClass(idKelas));
                 }
             }

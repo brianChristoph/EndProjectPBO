@@ -17,9 +17,9 @@ import javax.swing.JPanel;
 public class ParentDashboard {
 
     public ParentDashboard() {
-        JFrame f = new JFrame("Prantes Dashboard");
+        JFrame f = new JFrame("Parents Dashboard");
         
-        Header header = new Header("Hi","Jo");
+        Header header = new Header("Parents Dashbaord" );
         JPanel head = header.getHeader();
         head.setLocation(0, 0); 
         f.add(head);
@@ -40,7 +40,8 @@ public class ParentDashboard {
         button.calendar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new CalendarMenu();
+                f.setVisible(false);
+                new CalendarMenu();
             }
         });
         
@@ -48,6 +49,7 @@ public class ParentDashboard {
         button.teachers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                f.setVisible(false);
                 new TeachersMenu();
             }
         });
@@ -55,21 +57,24 @@ public class ParentDashboard {
         button.report.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new ReportMenu();
+                f.setVisible(false);
+                new ReportView();
             }
         });
         button.attandance.setLocation(56, 538);
         button.attandance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new AttandanceMenu();
+                f.setVisible(false);
+                new AttendanceView();
             }
         });
         button.announcement.setLocation(243, 538);
         button.announcement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new AnnouncementMenu();
+                f.setVisible(false);
+                new AnnouncementMenu();
             }
         });
         

@@ -20,7 +20,7 @@ public class AdminDashboard {
     public AdminDashboard() {
         JFrame f = new JFrame("Admin Dashboard");
 
-        Header header = new Header("Hi", "Jo");
+        Header header = new Header("Admin Dashboard");
         JPanel head = header.getHeader();
         head.setLocation(0, 0);
         f.add(head);
@@ -29,17 +29,17 @@ public class AdminDashboard {
         head.setVisible(true);
         Buttons button = new Buttons();
 
-        button.payment.setLocation(56, 230);
-        button.payment.addActionListener(new ActionListener() {
+        button.manageUsers.setLocation(56, 230);
+        button.manageUsers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new PaymentMenu();
+                new PaymentMenu();
                 f.setVisible(false);
             }
         });
 
-        button.calendar.setLocation(243, 230);
-        button.calendar.addActionListener(new ActionListener() {
+        button.manageClasses.setLocation(243, 230);
+        button.manageClasses.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                new CalendarMenu();
@@ -47,8 +47,8 @@ public class AdminDashboard {
             }
         });
 
-        button.teachers.setLocation(56, 384);
-        button.teachers.addActionListener(new ActionListener() {
+        button.announcement.setLocation(56, 384);
+        button.announcement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new TeachersMenu();
@@ -56,13 +56,15 @@ public class AdminDashboard {
             }
         });
 
-        f.add(button.payment);
-        f.add(button.calendar);
-        f.add(button.teachers);
+        f.add(button.manageUsers);
+        f.add(button.manageClasses);
+        f.add(button.announcement);
 
         f.setSize(432, 768);
         f.setLayout(null);
         f.setVisible(true);
     }
-
+    public static void main(String[] args) {
+        new AdminDashboard();
+    }
 }
