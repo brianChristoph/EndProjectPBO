@@ -20,7 +20,7 @@ public class CalendarMenu {
         f.setMinimumSize(new Dimension(432, 768));
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
-            Header header = new Header(UserManager.getInstance().getUser().getNama(), "Calendar");
+            Header header = new Header("Calendar");
             f.add(header.getHeader());
 
             ArrayList<Kelas> schedules = controller.getKelasFromDB();
