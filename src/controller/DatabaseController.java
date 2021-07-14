@@ -53,34 +53,4 @@ public class DatabaseController {
 //        System.out.println(user.getNama());
     }
     
-    public ArrayList<Posting> getPosts(int idKelas){
-        ArrayList<Posting> arrPosts = new ArrayList();
-        try {
-            String queryPost = "SELECT * FROM post WHERE id_kelas = " + idKelas;
-            Statement st = conn.con.createStatement();
-            ResultSet rPost = st.executeQuery(queryPost);
-            while(rPost.next()){
-                Posting post = new Posting();
-                post.setJudul(rPost.getString("judul"));
-                post.setDeskripsi(rPost.getString("deskripsi"));
-                arrPosts.add(post);
-            }
-            String queryTugas = "SELECT * FROM tugas WHERE id_kelas = " + idKelas;
-            ResultSet rTugas = st.executeQuery(queryTugas);
-            while(rTugas.next()){
-                Tugas tgs = new Tugas();
-                tgs.setJudul(rTugas.getString("judul"));
-                tgs.setDeskripsi(rTugas.getString("deskripsi"));
-                tgs.setTanggalPengumpulan(rTugas.getDate("tanggal_pengumpulan"));
-                tgs.setTanggalDikumpulkan(rTugas.getDate("tanggal_dikumpulkan"));
-                tgs.setTerkumpulkan(rTugas.getInt("terkumpulkan")==1?true:false);
-                tgs.setNilai(rTugas.getInt("nilai"));
-                arrPosts.add(tgs);
-            }
-        } catch(SQLException ex) {
-            
-        }
-        return arrPosts;
-    }
-    
 }
