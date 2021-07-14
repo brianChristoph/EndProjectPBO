@@ -5,6 +5,8 @@ import javax.swing.*;
 import model.*;
 import controller.CalendarController;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -12,49 +14,55 @@ import java.awt.Dimension;
  */
 public class CalendarMenu {
 
-public CalendarMenu() {
+    public CalendarMenu() {
 
-        CalendarController controller = new CalendarController();
+	CalendarController controller = new CalendarController();
 
-        JFrame f = new JFrame("Schedules");
-        f.setMinimumSize(new Dimension(432, 768));
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        try {
-            Header header = new Header("Calendar");
-            f.add(header.getHeader());
+	JFrame f = new JFrame("Schedules");
+	f.setMinimumSize(new Dimension(432, 768));
+	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	try {
+	    Header header = new Header("Calendar");
+	    f.add(header.getHeader());
 
-            ArrayList<Kelas> schedules = controller.getKelasFromDB();
+	    ArrayList<Kelas> schedules = controller.getKelasFromDB();
 
-            int tambah = 253;
-            int tambahJadwal = 277;
-            for (int i = 0; i < schedules.size(); i++) {
-                JLabel kelas = new JLabel("Kelas " + schedules.get(i).getNama());
-                JLabel jadwal = new JLabel("Jadwal " + schedules.get(i).getJadwal());
-                kelas.setBounds(46, tambah, 108, 12);
-                jadwal.setBounds(70, tambahJadwal, 235, 12);
-                tambah += 60;
-                tambahJadwal += 60;
-                f.add(kelas);
-                f.add(jadwal);
+	    int tambah = 253;
+	    int tambahJadwal = 277;
+	    for (int i = 0; i < schedules.size(); i++) {
+		JLabel kelas = new JLabel("Kelas " + schedules.get(i).getNama());
+		JLabel jadwal = new JLabel("Jadwal " + schedules.get(i).getJadwal());
+		kelas.setBounds(46, tambah, 108, 12);
+		jadwal.setBounds(70, tambahJadwal, 235, 12);
+		tambah += 60;
+		tambahJadwal += 60;
+		f.add(kelas);
+		f.add(jadwal);
 
-            }
-            
-            f.setLayout(null);
-            f.setVisible(true);
-        } catch (NullPointerException e) {
-            ErrorView.printError("no user");
-        }
+	    }
 
-//        JButton button1 = new JButton("Button1");
-//
-//        button1.setBounds(100, 200, 150, 16);
-//        f.add(button1);
-//
-//        button1.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                
-//            }
-//        });
+	    Buttons button = new Buttons();
+	    button.back.setLocation(295, 660);
+	    f.add(button.back);
+	    button.back.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		    TipeUser tipe = UserManager.getInstance().getUser().getTipe();
+		    f.setVisible(false);
+		    if (tipe == TipeUser.STUDENT) {
+			new StudentDashboard();
+		    } else if (tipe == TipeUser.PARENT) {
+			new ParentDashboard();
+		    } else if (tipe == TipeUser.TEACHER) {
+			new TeacherDashboard();
+		    }
+		}
+	    });
+
+	    f.setLayout(null);
+	    f.setVisible(true);
+	} catch (NullPointerException e) {
+	    ErrorView.printError("no user");
+	}
     }
 }

@@ -42,14 +42,19 @@ public class ReportView {
 
 	    }
 
-	    JButton back = new JButton("Back");
-	    back.setBounds(295, 660, 80, 36);
-	    f.add(back);
-	    back.addActionListener(new ActionListener() {
+	    Buttons button = new Buttons();
+	    button.back.setLocation(295, 660);
+	    f.add(button.back);
+	    button.back.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+		    TipeUser tipe = UserManager.getInstance().getUser().getTipe();
 		    f.setVisible(false);
-		    new StudentDashboard();
+		    if (tipe == TipeUser.STUDENT) {
+			new StudentDashboard();
+		    } else if (tipe == TipeUser.PARENT) {
+			new ParentDashboard();
+		    }
 		}
 	    });
 
