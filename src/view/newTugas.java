@@ -60,6 +60,21 @@ public class newTugas {
             }
         });
         
+        JButton back = new JButton("Back");
+        back.setBounds(130, 350, 80, 36);
+        frame.add(back);
+        back.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                frame.setVisible(false);
+                new createNew(kls);
+            }
+        });
+        
+        frame.setSize(432, 768);
+        frame.setLayout(null);
+        frame.setVisible(true);
+        
     }
     
 }

@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import model.Kelas;
 import model.Posting;
 import model.Tugas;
 import model.UserManager;
@@ -22,7 +23,7 @@ import model.UserManager;
  */
 public class ViewTugas {
     
-    public ViewTugas(Posting post){
+    public ViewTugas(Kelas kls, Posting post){
         Tugas tugas = (Tugas) post;
         JFrame frame = new JFrame("Tugas");
         Font roboto = new Font("Roboto", Font.PLAIN, 18);
@@ -58,6 +59,17 @@ public class ViewTugas {
                }
             });
         }
+        
+        JButton back = new JButton("Back");
+        back.setBounds(295, 660, 80, 36);
+        frame.add(back);
+        back.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                frame.setVisible(false);
+                new ViewClass(kls);
+            }
+        });
         
         frame.setSize(432, 768);
         frame.setLayout(null);

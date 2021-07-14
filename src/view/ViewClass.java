@@ -58,7 +58,7 @@ public class ViewClass {
                     newButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e){
-                            new ViewTugas(tgs);
+                            new ViewTugas(kls, tgs);
                             frame.setVisible(false);
                         }
                     });
@@ -79,6 +79,17 @@ public class ViewClass {
             }
             i++;
         }
+        
+        JButton back = new JButton("Back");
+        back.setBounds(295, 660, 80, 36);
+        frame.add(back);
+        back.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                frame.setVisible(false);
+                new TeacherDashboard();
+            }
+        });
         
         frame.setSize(432, 768);
         frame.setLayout(null);

@@ -28,7 +28,7 @@ public class createNew {
         identity.setFont(roboto);
         frame.add(identity);
         
-        JButton createTugas = new JButton();
+        JButton createTugas = new JButton("Tugas");
         createTugas.setBounds(75, 235, 260, 120);
         frame.add(createTugas);
         createTugas.addActionListener(new ActionListener(){
@@ -39,7 +39,7 @@ public class createNew {
             }
         });
         
-        JButton createPost = new JButton();
+        JButton createPost = new JButton("Post");
         createPost.setBounds(75, 362, 260, 120);
         frame.add(createPost);
         createPost.addActionListener(new ActionListener(){
@@ -47,6 +47,17 @@ public class createNew {
             public void actionPerformed(ActionEvent e){
                 new newPost(kls);
                 frame.setVisible(false);
+            }
+        });
+        
+        JButton back = new JButton("Back");
+        back.setBounds(295, 660, 80, 36);
+        frame.add(back);
+        back.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                frame.setVisible(false);
+                new ViewClass(kls);
             }
         });
         
