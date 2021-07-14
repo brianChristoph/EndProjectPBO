@@ -169,6 +169,23 @@ public class TeacherController {
         }
         return arrAbsensi;
     }
+    
+    public void createNewKelas(Guru guru, String nama, String kode, String jadwal){
+        conn.connect();
+        String query = "INSERT INTO kelas (`id_guru`, `judul`, `kode`, `jadwal`) VALUES (?,?,?,?)";
+        try {
+            PreparedStatement st = conn.con.prepareStatement(query);
+            st.setInt(1, UserManager.getInstance().getUser().getId());
+            st.setString(2, nama);
+            st.setString(3, kode);
+            st.setString(4, jadwal);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        updateUserData(guru, guru.getId());
+        conn.disconnect();
+    }
 
     public void createNewPost(int idKelas, String judul, String post) {
         conn.connect();
@@ -181,7 +198,7 @@ public class TeacherController {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        updateClassData((Guru)UserManager.getInstance().getUser(), idKelas);
+        updateUserData((Guru)UserManager.getInstance().getUser(), idKelas);
     }
     
     public void createNewTugas(int idKelas, String judul, String deskripsi, Date deadline){
@@ -197,10 +214,10 @@ public class TeacherController {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        updateClassData((Guru)UserManager.getInstance().getUser(), idKelas);
+        updateUserData((Guru)UserManager.getInstance().getUser(), idKelas);
     }
     
-    public void updateClassData(Guru pengguna, int idKelas){
+    public void updateUserData(Guru pengguna, int idKelas){
         for (int i = 0; i < pengguna.getAjarKelas().size(); i++) {
             if(pengguna.getAjarKelas().get(i) != null){
                 if(pengguna.getAjarKelas().get(i).getId() == idKelas){
@@ -220,7 +237,7 @@ public class TeacherController {
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            updateClassData(pengguna, idKelas);
+            updateUserData(pengguna, idKelas);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -238,7 +255,7 @@ public class TeacherController {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        updateClassData((Guru) UserManager.getInstance().getUser(), idKelas);
+        updateUserData((Guru) UserManager.getInstance().getUser(), idKelas);
         conn.disconnect();
     }
 
@@ -249,7 +266,7 @@ public class TeacherController {
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            updateClassData(pengguna, idKelas);
+            updateUserData(pengguna, idKelas);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -262,7 +279,7 @@ public class TeacherController {
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            updateClassData(pengguna, idKelas);
+            updateUserData(pengguna, idKelas);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
