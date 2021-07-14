@@ -33,7 +33,8 @@ public class StudentDashboard {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.add(Header.header);
-                
+                new ClassMenu();
+                f.setVisible(false);
             }
         });
         
