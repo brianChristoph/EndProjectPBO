@@ -6,13 +6,13 @@
 package view;
 
 import controller.MainController;
-import javax.swing.JFrame;
-import model.TipeUser;
-import model.UserManager;
 import controller.ParentController;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import model.Guru;
+import model.TipeUser;
+import model.UserManager;
 
 /**
  *
@@ -21,7 +21,7 @@ import model.Guru;
 public class TeachersMenu {
 
     public TeachersMenu() {
-        JFrame f = new JFrame();
+       JFrame f = new JFrame();
         MainController c = new MainController();
         ParentController pc = new ParentController();
         int id = 0;

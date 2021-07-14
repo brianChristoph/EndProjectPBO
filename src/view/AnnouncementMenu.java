@@ -38,10 +38,12 @@ public class AnnouncementMenu {
                 new AddAnnouncement();
             }
         });
-        } 
+        }
         for (int i = 0; i < announcement.size(); i++) {
             JLabel title = new JLabel(announcement.get(i).getJudul());
             JLabel desc = new JLabel(announcement.get(i).getDeskripsi());
+            f.add(title);
+            f.add(desc);
         }
         f.setSize(437,768);
         f.setLayout(null);

@@ -12,7 +12,7 @@ import java.awt.Dimension;
  */
 public class CalendarMenu {
 
-    public CalendarMenu() {
+public CalendarMenu() {
 
         CalendarController controller = new CalendarController();
 

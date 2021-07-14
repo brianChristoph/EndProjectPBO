@@ -18,24 +18,27 @@ public class ParentDashboard {
 
     public ParentDashboard() {
         JFrame f = new JFrame("Parents Dashboard");
+
+        Header header = new Header("Parents Dashboard");
         
-        Header header = new Header("Parents Dashbaord" );
         JPanel head = header.getHeader();
-        head.setLocation(0, 0); 
+        head.setLocation(0, 0);
         f.add(head);
-        
+
         head.setLayout(null);
         head.setVisible(true);
         Buttons button = new Buttons();
-        
+        f.add(Header.header);
+
         button.payment.setLocation(56, 230);
         button.payment.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.add(Header.header);
+                f.setVisible(false);
+                new PaymentMenu();
             }
         });
-        
+
         button.calendar.setLocation(243, 230);
         button.calendar.addActionListener(new ActionListener() {
             @Override
@@ -44,7 +47,7 @@ public class ParentDashboard {
                 new CalendarMenu();
             }
         });
-        
+
         button.teachers.setLocation(56, 384);
         button.teachers.addActionListener(new ActionListener() {
             @Override
@@ -61,8 +64,8 @@ public class ParentDashboard {
                 new ReportView();
             }
         });
-        button.attandance.setLocation(56, 538);
-        button.attandance.addActionListener(new ActionListener() {
+        button.attendance.setLocation(56, 538);
+        button.attendance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.setVisible(false);
@@ -77,16 +80,16 @@ public class ParentDashboard {
                 new AnnouncementMenu();
             }
         });
-        
+
         f.add(button.payment);
         f.add(button.calendar);
         f.add(button.teachers);
         f.add(button.report);
-        f.add(button.attandance);
+        f.add(button.attendance);
         f.add(button.announcement);
-        
+
         f.setSize(432, 768);
         f.setLayout(null);
         f.setVisible(true);
-    }
+    }    
 }

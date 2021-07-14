@@ -33,7 +33,7 @@ public class AdminDashboard {
         button.manageUsers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PaymentMenu();
+//                new manageUser();
                 f.setVisible(false);
             }
         });
@@ -42,7 +42,7 @@ public class AdminDashboard {
         button.manageClasses.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new CalendarMenu();
+//                new manageClass();
                 f.setVisible(false);
             }
         });
@@ -51,7 +51,7 @@ public class AdminDashboard {
         button.announcement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TeachersMenu();
+                new AnnouncementMenu();
                 f.setVisible(false);
             }
         });

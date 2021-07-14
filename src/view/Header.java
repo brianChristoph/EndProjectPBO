@@ -18,10 +18,8 @@ public class Header {
     static JPanel header = new JPanel();
 
     public Header(String sectionTitle) {
-        
         JLabel welcome = new JLabel("Welcome, ");
-        JLabel userName = new JLabel("Jonathan");
-//        JLabel userName = new JLabel(UserManager.getInstance().getUser().getNama());
+        JLabel userName = new JLabel(UserManager.getInstance().getUser().getNama());
         JLabel section = new JLabel(sectionTitle);
       
         welcome.setBounds(156, 72, 120, 32);

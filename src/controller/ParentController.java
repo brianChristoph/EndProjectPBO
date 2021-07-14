@@ -13,6 +13,7 @@ import model.Murid;
 import model.OrangTua;
 import model.TipeUser;
 import model.User;
+import model.Murid;
 import model.UserManager;
 
 /**
@@ -34,7 +35,7 @@ public class ParentController {
             while(rs.next()){
                 user.setNama(rs.getString("nama"));
                 user.setPassword(rs.getString("password"));
-                user.setNoTlp("no_tlp");
+                user.setNoTlp(rs.getString("no_tlp"));
                 user.setTipe(TipeUser.PARENT);
             }
         } catch(SQLException ex) {

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import model.Guru;
 import model.Kelas;
 import model.Pengumuman;
+import model.Kelas;
 import model.User;
 import model.UserManager;
 import model.TipeUser;
@@ -29,7 +30,7 @@ public class MainController {
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 Pengumuman announcement = new Pengumuman(
-                        rs.getString("judul"), 
+                        rs.getString("judul"),
                         rs.getString("deskripsi"));
                 announcements.add(announcement);
             }
@@ -38,6 +39,8 @@ public class MainController {
         }
         return announcements;
     }
+
+
     public void AddPengumuman(String judul, String deskripsi) {
         String query = "INSERT INTO `pengumuman`"
                 + "(`id_pengumuman`, `judul`, `deskripsi`) "
@@ -136,6 +139,7 @@ public class MainController {
                 listIdKelas.add(rs.getInt("id_kelas"));
             }
 
+
             for (int i  = 0; i < listIdKelas.size(); i++) {
                 query = "SELECT * FROM kelas WHERE id_kelas = " + listIdKelas.get(i);
                 rs = st.executeQuery(query);
@@ -155,7 +159,7 @@ public class MainController {
                     guru.add(newGuru);
                 }
             }
-        } catch (SQLException e) {  
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return guru;

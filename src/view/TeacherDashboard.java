@@ -47,8 +47,8 @@ public class TeacherDashboard {
             }
         });
         
-        button.attandance.setLocation(56, 384);
-        button.attandance.addActionListener(new ActionListener() {
+        button.attendance.setLocation(56, 384);
+        button.attendance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new TeachersMenu();
@@ -59,14 +59,14 @@ public class TeacherDashboard {
         button.announcement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new ReportMenu();
+                new AnnouncementMenu();
                 f.setVisible(false);
             }
         });
         
         f.add(button.classes);
         f.add(button.calendar);
-        f.add(button.attandance);
+        f.add(button.attendance);
         f.add(button.announcement);
         
         f.setSize(432, 768);
