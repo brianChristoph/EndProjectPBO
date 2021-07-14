@@ -171,6 +171,7 @@ public class TeacherController {
     }
 
     public void createNewPost(int idKelas, String judul, String post) {
+        conn.connect();
         String query = "INSERT INTO `post`(`judul`, `deskripsi`) VALUES (?,?)";
         try {
             PreparedStatement st = conn.con.prepareStatement(query);
@@ -184,6 +185,7 @@ public class TeacherController {
     }
     
     public void createNewTugas(int idKelas, String judul, String deskripsi, Date deadline){
+        conn.connect();;
         String query = "INSERT INTO `tugas`(`judul`, `deskripsi`, `tanggal_pengumpulan`, `id_kelas`) VALUES (?,?,?,?)";
         try {
             PreparedStatement st = conn.con.prepareStatement(query);
@@ -226,17 +228,17 @@ public class TeacherController {
     }
 
 
-    public void inputGrade(Guru pengguna, int idKelas, int idTugas, int idMurid, int nilai) {
+    public void inputGrade(int idKelas, int idTugas, int idMurid, int nilai) {
         conn.connect();
         String query = "UPDATE tugas SET nilai = " + nilai +
-                "' WHERE id_tugas = " + idTugas + " && id_murid = " + idMurid;
+                " WHERE id_tugas = " + idTugas + " && id_murid = " + idMurid;
         try {
-            Statement st = conn.con.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            updateClassData(pengguna, idKelas);
+            PreparedStatement st = conn.con.prepareStatement(query);
+            st.execute();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        updateClassData((Guru) UserManager.getInstance().getUser(), idKelas);
         conn.disconnect();
     }
 
