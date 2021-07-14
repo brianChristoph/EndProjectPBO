@@ -21,7 +21,7 @@ public class ReportView {
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
-            Header header = new Header(UserManager.getInstance().getUser().getNama(), "Report");
+            Header header = new Header("Report");
             f.add(header.getHeader());
 
             ArrayList<Kelas> reports = controller.getReportsFromDB();
