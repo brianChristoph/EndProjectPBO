@@ -1,5 +1,4 @@
 package model;
-import model.TipeUser;
 /**
  *
  * @author Axell Silvano;
@@ -7,7 +6,7 @@ import model.TipeUser;
 public class UserManager {
 
     private static UserManager instance;
-    private User user = new User(21,"asep","asep","asep",TipeUser.PARENT){};
+    private User user;
 
     public static UserManager getInstance() {
         if (instance == null) {
