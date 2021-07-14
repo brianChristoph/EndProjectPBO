@@ -26,7 +26,7 @@ public class TeachersMenu {
         ParentController pc = new ParentController();
         int id = 0;
         if (UserManager.getInstance().getUser().getTipe() == TipeUser.PARENT) {
-            id = pc.getAnak().getId();
+            id = pc.getAnak(UserManager.getInstance().getUser().getId()).getId();
         } else if (UserManager.getInstance().getUser().getTipe() == TipeUser.STUDENT) {
             id = UserManager.getInstance().getUser().getId();
         }

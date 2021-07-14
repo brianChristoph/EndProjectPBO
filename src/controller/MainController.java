@@ -194,4 +194,70 @@ public class MainController {
 	}
 	return guru;
     }
+    public ArrayList getAllParents() {
+        ParentController pc = new ParentController();
+        ArrayList<OrangTua> ortu = new ArrayList<>();
+        conn.connect();
+	String query = "SELECT * FROM orang_tua";
+        try {
+	    Statement st = conn.con.createStatement();
+	    ResultSet rs = st.executeQuery(query);
+	    while (rs.next()) {
+		OrangTua newOrtu = new OrangTua();
+                newOrtu.setAnak(pc.getAnak(rs.getInt("id_ortu")));
+                newOrtu.setNama(rs.getString("nama"));
+                newOrtu.setId(rs.getInt("id_ortu"));
+                newOrtu.setNIP(rs.getString("nip"));
+                newOrtu.setNoTlp(rs.getString("no_telepon"));
+                newOrtu.setTipe(TipeUser.PARENT);
+                ortu.add(newOrtu);
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+        return ortu;
+    }
+    
+    public ArrayList getAllAdmin() {
+        ArrayList<Admin> admin = new ArrayList<>();
+        conn.connect();
+	String query = "SELECT * FROM admin";
+        try {
+	    Statement st = conn.con.createStatement();
+	    ResultSet rs = st.executeQuery(query);
+	    while (rs.next()) {
+		Admin newAdmin = new Admin();
+                newAdmin.setNama(rs.getString("nama"));
+                newAdmin.setId(rs.getInt("id_admin"));
+                newAdmin.setPassword(rs.getString("password"));
+                newAdmin.setNik(rs.getString("nik"));
+                newAdmin.setNoTlp(rs.getString("no_telepon"));
+                newAdmin.setTipe(TipeUser.PARENT);
+                admin.add(newAdmin);
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+        return admin;
+    }
+    public ArrayList getAllKelas() {
+        ArrayList<Kelas> kelas = new ArrayList<>();
+        conn.connect();
+	String query = "SELECT * FROM kelas";
+        try {
+	    Statement st = conn.con.createStatement();
+	    ResultSet rs = st.executeQuery(query);
+	    while (rs.next()) {
+		Kelas newKelas = new Kelas();
+                newKelas.setNama(rs.getString("nama"));
+                newKelas.setId(rs.getInt("id_admin"));
+                newKelas.setJadwal(rs.getString("jadwal"));
+                newKelas.setKode(rs.getString("kode"));
+                kelas.add(newKelas);
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+        return kelas;
+    }
 }

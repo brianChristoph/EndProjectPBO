@@ -45,11 +45,10 @@ public class ParentController {
         }
         return user;
     }
-    public Murid getAnak() {
+    public Murid getAnak(int id_ortu) {
         Murid anak = new Murid();
-        OrangTua ortu = (OrangTua) UserManager.getInstance().getUser();
         conn.connect();
-        String query = "SELECT * FROM murid WHERE nip ='" + ortu.getNIP() + "'";
+        String query = "SELECT * FROM murid WHERE nip ='" + id_ortu + "'";
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
