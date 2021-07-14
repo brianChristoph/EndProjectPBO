@@ -34,7 +34,7 @@ public class ViewClass {
         frame.add(identity);
         
         if(UserManager.getInstance().getUser() instanceof Guru){
-            JButton create = new JButton("Add");
+            JButton create = new JButton("+");
             create.setBounds(358, 157, 36, 36);
             frame.add(create);
             create.addActionListener(new ActionListener(){
@@ -87,7 +87,7 @@ public class ViewClass {
             @Override
             public void actionPerformed(ActionEvent e){
                 frame.setVisible(false);
-                new TeacherDashboard();
+                new ClassMenu();
             }
         });
         
