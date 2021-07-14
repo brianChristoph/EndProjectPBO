@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import model.UserManager;
 
 /**
  *
@@ -81,6 +82,15 @@ public class StudentDashboard {
                 new AnnouncementMenu();
             }
         });
+        button.logout.setLocation(286, 660);
+        button.logout.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                UserManager.getInstance().setUser(null);
+                new LoginScreen();
+                f.setVisible(false);
+            }
+        });
 
         f.add(button.classes);
         f.add(button.calendar);
@@ -88,6 +98,7 @@ public class StudentDashboard {
         f.add(button.report);
         f.add(button.attendance);
         f.add(button.announcement);
+        f.add(button.logout);
 
         f.setSize(432, 768);
         f.setLayout(null);
