@@ -20,6 +20,7 @@ public class ParentDashboard {
         JFrame f = new JFrame("Parents Dashboard");
 
         Header header = new Header("Parents Dashboard");
+        
         JPanel head = header.getHeader();
         head.setLocation(0, 0);
         f.add(head);

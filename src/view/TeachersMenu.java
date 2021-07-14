@@ -50,8 +50,6 @@ public class TeachersMenu {
         f.setLayout(null);
         f.setSize(432,768);
         f.setVisible(true);
-       
     }
-    
     
 }

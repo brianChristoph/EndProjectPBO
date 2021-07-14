@@ -34,9 +34,18 @@ public class Header {
         header.setSize(337, 136);
         header.setVisible(true);
         header.setLayout(null);
+        header.setLocation(0,0);
+        JFrame f = new JFrame("");
+        f.setSize(432,768);
+        f.add(header);
+        f.setLayout(null);
+        f.setVisible(true);
     }
   
     public JPanel getHeader() {
         return this.header;
+    }
+    public static void main(String[] args) {
+        new Header("Test");
     }
 }

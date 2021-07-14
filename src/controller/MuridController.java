@@ -65,19 +65,32 @@ public class MuridController {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
-                Kelas followClass = new Kelas();
-                TeacherController tc = new TeacherController();
-                followClass.setId(rs.getInt("id_kelas"));
-                followClass.setKode(rs.getString("kode"));
-                followClass.setNama(rs.getString("nama"));
-                followClass.setJadwal(rs.getString("jadwal"));
-                followClass.setArrPost(getPosts(rs.getInt("id_kelas")));
+                Kelas followClass = getClass(rs.getInt("id_kelas"));
                 arrClasses.add(followClass);
             }
         } catch(SQLException ex) {
             ex.printStackTrace();
         }
         return arrClasses;
+    }
+    
+    private Kelas getClass(int idKelas){
+        Kelas kelas = new Kelas();
+        String query = "SELECT * FROM kelas WHERE id_kelas = " + idKelas;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                kelas.setId(rs.getInt("id_kelas"));
+                kelas.setKode(rs.getString("kode"));
+                kelas.setNama(rs.getString("nama"));
+                kelas.setJadwal(rs.getString("jadwal"));
+                kelas.setArrPost(getPosts(rs.getInt("id_kelas")));
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+        return kelas;
     }
     
     private ArrayList<Posting> getPosts(int idKelas){

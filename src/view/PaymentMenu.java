@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import model.Murid;
 import java.util.Date;
+
 /**
  *
  * @author jonat
@@ -35,6 +36,7 @@ public class PaymentMenu {
         f.add(detail);
         
         button.back.setLocation(204,312);
+
         f.add(button.back);
         button.back.addActionListener(new ActionListener() {
             @Override
@@ -48,7 +50,9 @@ public class PaymentMenu {
         f.setSize(432,768);
         f.setLayout(null);
         f.setVisible(true);
+
+        f.setSize(432, 768);
+        f.setLayout(null);
+        f.setVisible(true);
     }
-    
-    
 }
