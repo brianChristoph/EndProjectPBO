@@ -28,18 +28,18 @@ public class ParentController {
     public OrangTua getUser(String id, String password){
         conn.connect();
         OrangTua user = new OrangTua();
-        String query = "SELECT * FROM orang_tua WHERE nip = '" + id + "' && password = '" + password + "'";
+        String query = "SELECT * FROM orang_tua WHERE nip = " + id + " AND password = '" + password + "'";
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
                 user.setNama(rs.getString("nama"));
                 user.setPassword(rs.getString("password"));
-                user.setNoTlp(rs.getString("no_tlp"));
+                user.setNoTlp(rs.getString("no_telepon"));
                 user.setTipe(TipeUser.PARENT);
             }
-        } catch(SQLException ex) {
-            
+        } catch(SQLException e) {
+            e.printStackTrace();
         }
         return user;
     }

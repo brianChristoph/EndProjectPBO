@@ -25,7 +25,7 @@ public class AdminController {
     public Admin getUser(String id, String password){
         conn.connect();
         Admin user = new Admin();
-        String query = "SELECT * FROM admin WHERE nik = '" + id + "' && password = '" + password + "'";
+        String query = "SELECT * FROM admin WHERE nik = " + id + " AND password = '" + password + "'";
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);

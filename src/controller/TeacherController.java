@@ -40,7 +40,7 @@ public class TeacherController {
     }
     
     private String loginQuery(String nik, String password){
-        return "SELECT * FROM guru WHERE nik = '" + nik + "' && password = '" + password + "'";
+        return "SELECT * FROM guru WHERE nik = " + nik + " && password = '" + password + "'";
     }
     
     private Guru getNonArrayDataType(Guru user, String nik, String password){

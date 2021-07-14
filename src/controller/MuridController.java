@@ -25,17 +25,17 @@ public class MuridController {
     
     DatabaseHandler conn = new DatabaseHandler();
     
-    public Murid getUser(String nik, String password){
+    public Murid getUser(String nip, String password){
         conn.connect();
         Murid user = new Murid();
-        user = getNonArrayDataType(user, nik, password);
+        user = getNonArrayDataType(user, nip, password);
         user.setListKelas(getFollowedClass(user.getId()));
         conn.disconnect();
         return user;
     }
     
     private String loginQuery(String nip, String password){
-        return "SELECT * FROM murid WHERE nip = '" + nip + "' && password = '" + password + "'";
+        return "SELECT * FROM murid WHERE nip = " + nip + " AND password = '" + password + "'";
     }
     
     public Murid getNonArrayDataType(Murid user, String id, String password){
