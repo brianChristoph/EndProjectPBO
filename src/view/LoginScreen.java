@@ -103,7 +103,7 @@ public class LoginScreen {
                 User user = null;
                 if(option1.isSelected()){
                     MuridController mc = new MuridController();
-                    user = (Murid)mc.getUser(inputID.getText(), new String(inputPassword.getPassword()), 0);
+                    user = (Murid)mc.getUser(inputID.getText(), new String(inputPassword.getPassword()));
                 } else if (option2.isSelected()) {
                     ParentController pc = new ParentController();
                     user = (OrangTua)pc.getUser(inputID.getText(), new String(inputPassword.getPassword()));
