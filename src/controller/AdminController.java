@@ -22,7 +22,7 @@ public class AdminController {
     DatabaseHandler conn = new DatabaseHandler();
     
     // Take User From dBase
-    public User getUser(String id, String password){
+    public Admin getUser(String id, String password){
         conn.connect();
         Admin user = new Admin();
         String query = "SELECT * FROM admin WHERE nik = '" + id + "' && password = '" + password + "'";
@@ -30,7 +30,7 @@ public class AdminController {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
-//                    user.setId(rs.getInt("ID"));
+                user.setId(rs.getInt("id_admin"));
                 user.setNama(rs.getString("nama"));
                 user.setPassword(rs.getString("password"));
                 user.setNoTlp(rs.getString("noTelp"));
@@ -38,18 +38,9 @@ public class AdminController {
                 user.setTipe(TipeUser.ADMIN);
             }
         } catch(SQLException ex) {
-            
+            ex.printStackTrace();
         }
         return user;
-    }
-    
-    public AdminController(){
-        User a = getUser("112233", "admin");
-        System.out.println(a.getNama());
-    }
-    
-    public static void main(String[] args) {
-        new AdminController();
     }
     
 }

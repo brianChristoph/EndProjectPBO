@@ -5,16 +5,22 @@
  */
 package controller;
 
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+import model.Absensi;
 import model.User;
 import model.Guru;
 import model.Murid;
 import model.Kelas;
+import model.Posting;
+import model.StatusAbsensi;
 import model.TipeUser;
+import model.Tugas;
+import model.UserManager;
 
 /**
  *
@@ -22,146 +28,226 @@ import model.TipeUser;
  */
 public class TeacherController {
 
-    ArrayList<Kelas> arrKelas = new ArrayList();
     DatabaseHandler conn = new DatabaseHandler();
     
-    // Database related
-//    public User getUser(String id, String password, int idGuru){
-    public User getUser(String id, String password, String nama){
-        String query = "";
+    public Guru getUser(String nik, String password){
+        conn.connect();
         Guru user = new Guru();
-        if(nama != null)
-            query = "SELECT * FROM guru WHERE nama = '" + nama + "'";
-        else
-            conn.connect();
-            query = "SELECT * FROM guru WHERE nik = '" + id + "' && password = '" + password + "'";
+        user = getNonArrayDataType(user, nik, password);
+        user.setAjarKelas(getTaughtClass(user, user.getId()));
+        conn.disconnect();
+        return user;
+    }
+    
+    private String loginQuery(String nik, String password){
+        return "SELECT * FROM guru WHERE nik = '" + nik + "' && password = '" + password + "'";
+    }
+    
+    private Guru getNonArrayDataType(Guru user, String nik, String password){
+        String query = loginQuery(nik, password);
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
+                user.setId(rs.getInt("id_guru"));
+                user.setNik(rs.getString("nik"));
                 user.setNama(rs.getString("nama"));
                 user.setPassword(rs.getString("password"));
                 user.setNoTlp(rs.getString("no_telepon"));
                 user.setTipe(TipeUser.TEACHER);
-//                user.setAjarKelas(getTaughtClasses(rs.getInt("id_guru")));
             }
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        conn.disconnect();
         return user;
     }
-    private ArrayList<Kelas> getTaughtClasses(int idGuru){
+    
+    private ArrayList<Kelas> getTaughtClass(Guru user, int idGuru){
         ArrayList<Kelas> arrClasses = new ArrayList();
         String query = "SELECT * FROM kelas WHERE id_guru = " + idGuru;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
-                ClassController cc = new ClassController();
-                Kelas taughtClass = cc.getKelas(rs.getInt("id_kelas"), true);
+                Kelas taughtClass = new Kelas();
+                taughtClass.setId(rs.getInt("id_kelas"));
+                taughtClass.setKode(rs.getString("kode"));
+                taughtClass.setNama(rs.getString("nama"));
+                taughtClass.setJadwal(rs.getString("jadwal"));
+                taughtClass.setHomeRoomTeacher(user);
+                taughtClass.setArrAbsensiMurid(getAbsensiMurid(rs.getInt("id_kelas")));
+                taughtClass.setArrPost(getPosts(rs.getInt("id_kelas")));
+                taughtClass.setArrMurid(getStudentsInClass(rs.getInt("id_kelas")));
                 arrClasses.add(taughtClass);
             }
-        } catch(SQLException ex) {
-            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
         return arrClasses;
     }
-
-    private boolean isTeacher(User pengguna) {
-        if (pengguna instanceof Guru) {
-            return true;
-        }
-        return false;
-    }
-
-    private int indexKelas(int idKelas) {
-        for (int i = 0; i < arrKelas.size(); i++) {
-            if (arrKelas.get(i) != null) {
-                /**
-                 * if idKelas == id kelas yang ada di database return i;
-                 */
-
+    
+    private ArrayList<Posting> getPosts(int idKelas){
+        ArrayList<Posting> arrPosts = new ArrayList();
+        try {
+            String queryPost = "SELECT * FROM post WHERE id_kelas = " + idKelas;
+            Statement st = conn.con.createStatement();
+            ResultSet rPost = st.executeQuery(queryPost);
+            while(rPost.next()){
+                Posting post = new Posting();
+                post.setJudul(rPost.getString("judul"));
+                post.setDeskripsi(rPost.getString("deskripsi"));
+                arrPosts.add(post);
             }
+            String queryTugas = "SELECT * FROM tugas WHERE id_kelas = " + idKelas;
+            ResultSet rTugas = st.executeQuery(queryTugas);
+            while(rTugas.next()){
+                Tugas tgs = new Tugas();
+                tgs.setJudul(rTugas.getString("judul"));
+                tgs.setDeskripsi(rTugas.getString("deskripsi"));
+                tgs.setTanggalPengumpulan(rTugas.getDate("tanggal_pengumpulan"));
+                tgs.setTanggalDikumpulkan(rTugas.getDate("tanggal_dikumpulkan"));
+                tgs.setTerkumpulkan(rTugas.getInt("terkumpulkan")==1?true:false);
+                tgs.setNilai(rTugas.getInt("nilai"));
+                arrPosts.add(tgs);
+            }
+        } catch(SQLException ex) {
+            ex.printStackTrace();
         }
-        return -1;
+        return arrPosts;
     }
-
-    private void printError() {
-
+    
+    private ArrayList<Murid> getStudentsInClass(int idKelas){
+        ArrayList<Murid> arrStudents = new ArrayList();
+        String query = "SELECT * FROM murid_kelas WHERE id_kelas = " + idKelas;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                Murid student = getStudent(rs.getInt("id_murid"));
+                arrStudents.add(student);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return arrStudents;
+    }
+    
+    private Murid getStudent(int idMurid){
+        Murid murid = new Murid();
+        String query = "SELECT * FROM murid WHERE id_murid = " + idMurid;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                murid.setId(rs.getInt("id_murid"));
+                murid.setNIP(rs.getString("nip"));
+                murid.setNama(rs.getString("nama"));
+                murid.setNoTlp(rs.getString("no_telepon"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return murid;
+    }
+    
+    private ArrayList<Absensi> getAbsensiMurid(int idKelas){
+        ArrayList<Absensi> arrAbsensi = new ArrayList();
+        String query = "SELECT * FROM absensi WHERE id_kelas = " + idKelas;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                Absensi kehadiran = new Absensi();
+                kehadiran.setDate(rs.getDate("tanggal"));
+                kehadiran.setHadir(rs.getInt("hadir") == 1 ? StatusAbsensi.HADIR : StatusAbsensi.ALPHA);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return arrAbsensi;
     }
 
     public void createNewPost(User pengguna, int idKelas, String judul, String post) {
         if (pengguna.getTipe().TEACHER == TipeUser.TEACHER) {
-            try {
                 String query = "INSERT INTO `post`(`judul`, `deskripsi`) VALUES (?,?)";
+            try {
                 PreparedStatement st = conn.con.prepareStatement(query);
                 st.setString(1, judul);
                 st.setString(2, post);
                 st.executeUpdate();
-            } catch (SQLException e) {
-
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
     }
-
-    public void deletePost(User pengguna, int idKelas, int idPost) {
-
-    }
-
-    public void studentAttendance(User pengguna, int idKelas) {
-
-    }
-
-    public void inputGrade(User pengguna, int idKelas, int idMurid, int nilai) {
-
-    }
-
-    public void kickStudent(User pengguna, int idKelas, int idMurid, ArrayList<Murid> murids) {
-        if (isTeacher(pengguna) == true) {
-            int idxKelas = indexKelas(idKelas);
-            if (idxKelas != -1) {
-                /**
-                 * get arrMurid yg ada di model kelas delete murid where idMurid
-                 * == arrMurid().get(i).getId()
-                 */
-                int result = getMuridById(murids, idMurid);
-                if (result == -1) {
-                    System.out.println("No murid with id " + idMurid + " found");
-                } else {
-                    try {
-                        String query = "DELETE FROM `murid_kelas` WHERE id_murid = ? AND id_kelas = ?";
-                        PreparedStatement st = conn.con.prepareStatement(query);
-                        st.setInt(1, result);
-                        st.setInt(2, idKelas);
-                        st.executeUpdate();
-                        System.out.println("Murid with id " + idMurid + " deleted from kelas with id " + idKelas);
-                    } catch (SQLException e) {
-                        printError();
-                    }
+    
+    public void updateClassData(Guru pengguna, int idKelas){
+        for (int i = 0; i < pengguna.getAjarKelas().size(); i++) {
+            if(pengguna.getAjarKelas().get(i) != null){
+                if(pengguna.getAjarKelas().get(i).getId() == idKelas){
+                    pengguna.getAjarKelas().get(i).setArrPost(getPosts(idKelas));
+                    pengguna.getAjarKelas().get(i).setArrAbsensiMurid(getAbsensiMurid(idKelas));
+                    pengguna.getAjarKelas().get(i).setArrMurid(getStudentsInClass(idKelas));
                 }
-            } else {
-                printError();
             }
         }
+        UserManager.getInstance().setUser(pengguna);
     }
 
-    private int getMuridById(ArrayList<Murid> murids, int search) {
-        for (int i = 0; i < murids.size(); i++) {
-            if (murids.get(i).getId() == search) {
-                return murids.get(i).getId();
-            }
+    public void deletePost(Guru pengguna, int idKelas, int idPost) {
+        // Delete from database
+        conn.connect();
+        String query = "DELETE FROM post WHERE id_post = " + idPost;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            updateClassData(pengguna, idKelas);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return -1;
+        conn.disconnect();
+    }
+
+
+    public void inputGrade(Guru pengguna, int idKelas, int idTugas, int idMurid, int nilai) {
+        conn.connect();
+        String query = "UPDATE tugas SET nilai = " + nilai + 
+                "tanggal = '" + new Date() +
+                "' WHERE id_tugas = " + idTugas + " && id_murid = " + idMurid;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            updateClassData(pengguna, idKelas);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        conn.disconnect();
+    }
+
+    public void studentAttendance(Guru pengguna, int idKelas, Date tanggal, int hadir) {
+        // Update Database
+        conn.connect();
+        String query = "UPDATE absensi SET tanggal = '" + tanggal + "' , hadir = " + hadir + " WHERE id_kelas = " + idKelas;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            updateClassData(pengguna, idKelas);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        conn.disconnect();
     }
     
-    public TeacherController(){
-        User guru = getUser("123", "pass", null);
-        System.out.println(guru.getNama());
-    }
-    
-    public static void main(String[] args) {
-        new TeacherController();
+    public void kickStudent(Guru pengguna, int idKelas, int idMurid) {
+        conn.connect();
+        String query = "DELETE FROM murid_kelas WHERE id_kelas = " + idKelas + " && id_murid = " + idMurid;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            updateClassData(pengguna, idKelas);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

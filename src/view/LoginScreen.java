@@ -17,6 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import controller.AdminController;
+import controller.MainController;
 import controller.MuridController;
 import controller.ParentController;
 import controller.TeacherController;
@@ -102,13 +103,13 @@ public class LoginScreen {
                 User user = null;
                 if(option1.isSelected()){
                     MuridController mc = new MuridController();
-                    user = (Murid)mc.getUser(inputID.getText(), new String(inputPassword.getPassword()), 0);
+                    user = (Murid)mc.getUser(inputID.getText(), new String(inputPassword.getPassword()));
                 } else if (option2.isSelected()) {
                     ParentController pc = new ParentController();
                     user = (OrangTua)pc.getUser(inputID.getText(), new String(inputPassword.getPassword()));
                 } else if (option3.isSelected()) {
                     TeacherController tc = new TeacherController();
-                    user = (Guru)tc.getUser(inputID.getText(), new String(inputPassword.getPassword()), null);
+                    user = (Guru) tc.getUser(inputID.getText(), new String(inputPassword.getPassword()));
                 } else if (option4.isSelected()) {
                     AdminController ac = new AdminController();
                     user = (Admin)ac.getUser(inputID.getText(), new String(inputPassword.getPassword()));
