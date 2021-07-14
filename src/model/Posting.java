@@ -11,9 +11,10 @@ package model;
  */
 public class Posting {
     
+    private int id;
     private String judul;
     private String deskripsi;
-
+    
     public String getJudul() {
         return judul;
     }
@@ -33,6 +34,14 @@ public class Posting {
     public Posting(String judul, String deskripsi) {
         this.judul = judul;
         this.deskripsi = deskripsi;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     public Posting(){}

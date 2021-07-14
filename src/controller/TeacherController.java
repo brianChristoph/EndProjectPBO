@@ -94,6 +94,7 @@ public class TeacherController {
             ResultSet rPost = st.executeQuery(queryPost);
             while(rPost.next()){
                 Posting post = new Posting();
+                post.setId(rPost.getInt("id_post"));
                 post.setJudul(rPost.getString("judul"));
                 post.setDeskripsi(rPost.getString("deskripsi"));
                 arrPosts.add(post);
@@ -102,6 +103,8 @@ public class TeacherController {
             ResultSet rTugas = st.executeQuery(queryTugas);
             while(rTugas.next()){
                 Tugas tgs = new Tugas();
+                tgs.setId(rTugas.getInt("id_tugas"));
+                tgs.setIdMurid(rTugas.getInt("id_murid"));
                 tgs.setJudul(rTugas.getString("judul"));
                 tgs.setDeskripsi(rTugas.getString("deskripsi"));
                 tgs.setTanggalPengumpulan(rTugas.getDate("tanggal_pengumpulan"));
@@ -132,7 +135,7 @@ public class TeacherController {
         return arrStudents;
     }
     
-    private Murid getStudent(int idMurid){
+    public Murid getStudent(int idMurid){
         Murid murid = new Murid();
         String query = "SELECT * FROM murid WHERE id_murid = " + idMurid;
         try {
@@ -166,22 +169,55 @@ public class TeacherController {
         }
         return arrAbsensi;
     }
-
-    public void createNewPost(User pengguna, int idKelas, String judul, String post) {
-        if (pengguna.getTipe().TEACHER == TipeUser.TEACHER) {
-                String query = "INSERT INTO `post`(`judul`, `deskripsi`) VALUES (?,?)";
-            try {
-                PreparedStatement st = conn.con.prepareStatement(query);
-                st.setString(1, judul);
-                st.setString(2, post);
-                st.executeUpdate();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+    
+    public void createNewKelas(Guru guru, String nama, String kode, String jadwal){
+        conn.connect();
+        String query = "INSERT INTO kelas (`id_guru`, `judul`, `kode`, `jadwal`) VALUES (?,?,?,?)";
+        try {
+            PreparedStatement st = conn.con.prepareStatement(query);
+            st.setInt(1, UserManager.getInstance().getUser().getId());
+            st.setString(2, nama);
+            st.setString(3, kode);
+            st.setString(4, jadwal);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+        updateUserData(guru, guru.getId());
+        conn.disconnect();
+    }
+
+    public void createNewPost(int idKelas, String judul, String post) {
+        conn.connect();
+        String query = "INSERT INTO `post`(`judul`, `deskripsi`) VALUES (?,?)";
+        try {
+            PreparedStatement st = conn.con.prepareStatement(query);
+            st.setString(1, judul);
+            st.setString(2, post);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        updateUserData((Guru)UserManager.getInstance().getUser(), idKelas);
     }
     
-    public void updateClassData(Guru pengguna, int idKelas){
+    public void createNewTugas(int idKelas, String judul, String deskripsi, Date deadline){
+        conn.connect();;
+        String query = "INSERT INTO `tugas`(`judul`, `deskripsi`, `tanggal_pengumpulan`, `id_kelas`) VALUES (?,?,?,?)";
+        try {
+            PreparedStatement st = conn.con.prepareStatement(query);
+            st.setString(1, judul);
+            st.setString(2, deskripsi);
+            st.setDate(3, (java.sql.Date) deadline);
+            st.setInt(4, idKelas);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        updateUserData((Guru)UserManager.getInstance().getUser(), idKelas);
+    }
+    
+    public void updateUserData(Guru pengguna, int idKelas){
         for (int i = 0; i < pengguna.getAjarKelas().size(); i++) {
             if(pengguna.getAjarKelas().get(i) != null){
                 if(pengguna.getAjarKelas().get(i).getId() == idKelas){
@@ -201,7 +237,7 @@ public class TeacherController {
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            updateClassData(pengguna, idKelas);
+            updateUserData(pengguna, idKelas);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -209,18 +245,17 @@ public class TeacherController {
     }
 
 
-    public void inputGrade(Guru pengguna, int idKelas, int idTugas, int idMurid, int nilai) {
+    public void inputGrade(int idKelas, int idTugas, int idMurid, int nilai) {
         conn.connect();
-        String query = "UPDATE tugas SET nilai = " + nilai + 
-                "tanggal = '" + new Date() +
-                "' WHERE id_tugas = " + idTugas + " && id_murid = " + idMurid;
+        String query = "UPDATE tugas SET nilai = " + nilai +
+                " WHERE id_tugas = " + idTugas + " && id_murid = " + idMurid;
         try {
-            Statement st = conn.con.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            updateClassData(pengguna, idKelas);
+            PreparedStatement st = conn.con.prepareStatement(query);
+            st.execute();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        updateUserData((Guru) UserManager.getInstance().getUser(), idKelas);
         conn.disconnect();
     }
 
@@ -231,7 +266,7 @@ public class TeacherController {
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            updateClassData(pengguna, idKelas);
+            updateUserData(pengguna, idKelas);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -244,7 +279,7 @@ public class TeacherController {
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            updateClassData(pengguna, idKelas);
+            updateUserData(pengguna, idKelas);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

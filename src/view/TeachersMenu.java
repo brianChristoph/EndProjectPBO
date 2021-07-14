@@ -7,7 +7,10 @@ package view;
 
 import controller.MainController;
 import controller.ParentController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import model.Guru;
@@ -45,11 +48,28 @@ public class TeachersMenu {
             f.add(namaGuru);
             f.add(noTlpGuru);
         }
-        f.add(coloumGuru);
-        f.add(coloumNoTlp);
-        f.setLayout(null);
-        f.setSize(432,768);
-        f.setVisible(true);
+
+	Buttons button = new Buttons();
+	button.back.setLocation(295, 660);
+	f.add(button.back);
+	button.back.addActionListener(new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		TipeUser tipe = UserManager.getInstance().getUser().getTipe();
+		f.setVisible(false);
+		if (tipe == TipeUser.STUDENT) {
+		    new StudentDashboard();
+		} else if (tipe == TipeUser.PARENT) {
+		    new ParentDashboard();
+		}
+	    }
+	});
+
+	f.add(coloumGuru);
+	f.add(coloumNoTlp);
+	f.setLayout(null);
+	f.setSize(432, 768);
+	f.setVisible(true);
     }
-    
+
 }

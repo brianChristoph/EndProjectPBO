@@ -45,7 +45,5 @@ public class Header {
     public JPanel getHeader() {
         return this.header;
     }
-    public static void main(String[] args) {
-        new Header("Test");
-    }
+    
 }

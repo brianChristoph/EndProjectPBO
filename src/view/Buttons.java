@@ -22,6 +22,7 @@ public class Buttons {
     JButton teachers = new JButton ("Teachers");
     JButton report = new JButton ("Report");
     JButton back = new JButton ("Back");
+    JButton logout = new JButton("Logout");
     public Buttons() {
         manageUsers.setSize(131, 120);
         
@@ -42,6 +43,8 @@ public class Buttons {
         report.setSize(131, 120);
         
         back.setSize(81,36);
+        
+        logout.setSize(90, 36);
     }
     
     
