@@ -7,6 +7,7 @@ package view;
 
 import model.User;
 import javax.swing.*;
+import model.UserManager;
 
 /**
  *
@@ -16,10 +17,9 @@ public class Header {
 
     static JPanel header = new JPanel();
 
-    public Header(String user, String sectionTitle) {
-        String name = user;
+    public Header(String sectionTitle) {
         JLabel welcome = new JLabel("Welcome, ");
-        JLabel userName = new JLabel(name);
+        JLabel userName = new JLabel(UserManager.getInstance().getUser().getNama());
         JLabel section = new JLabel(sectionTitle);
       
         welcome.setBounds(156, 72, 120, 32);
@@ -34,9 +34,18 @@ public class Header {
         header.setSize(337, 136);
         header.setVisible(true);
         header.setLayout(null);
+        header.setLocation(0,0);
+        JFrame f = new JFrame("");
+        f.setSize(432,768);
+        f.add(header);
+        f.setLayout(null);
+        f.setVisible(true);
     }
   
     public JPanel getHeader() {
         return this.header;
+    }
+    public static void main(String[] args) {
+        new Header("Test");
     }
 }

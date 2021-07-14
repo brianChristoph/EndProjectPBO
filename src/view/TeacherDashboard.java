@@ -19,7 +19,7 @@ public class TeacherDashboard {
     public TeacherDashboard() {
         JFrame f = new JFrame("Teacher Dashboard");
         
-        Header header = new Header("Hi","Jo");
+        Header header = new Header("Teacher Dashboard");
         JPanel head = header.getHeader();
         head.setLocation(0, 0); 
         f.add(head);
@@ -47,8 +47,8 @@ public class TeacherDashboard {
             }
         });
         
-        button.attandance.setLocation(56, 384);
-        button.attandance.addActionListener(new ActionListener() {
+        button.attendance.setLocation(56, 384);
+        button.attendance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new TeachersMenu();
@@ -59,21 +59,18 @@ public class TeacherDashboard {
         button.announcement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new ReportMenu();
+                new AnnouncementMenu();
                 f.setVisible(false);
             }
         });
         
         f.add(button.classes);
         f.add(button.calendar);
-        f.add(button.attandance);
+        f.add(button.attendance);
         f.add(button.announcement);
         
         f.setSize(432, 768);
         f.setLayout(null);
         f.setVisible(true);
-    }
-    public static void main(String[] args) {
-        new TeacherDashboard();
     }
 }

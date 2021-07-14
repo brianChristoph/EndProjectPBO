@@ -13,8 +13,28 @@ import java.util.Date;
  */
 public class Absensi {
     
+    private String className;
     private Date date;
     private StatusAbsensi hadir;
+    private double presensi;
+
+    public double getPresensi() {
+        return presensi;
+    }
+
+    public void setPresensi(double presensi) {
+        this.presensi = presensi;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+    
+    
 
     public Date getDate() {
         return date;

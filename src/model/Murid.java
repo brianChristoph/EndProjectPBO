@@ -15,7 +15,6 @@ public class Murid extends User implements StudentInformation {
     private String NIP;
     private ArrayList<Kelas> listKelas = new ArrayList();
     private double SPP;
-    private int angkatan;
 
     public String getNIP() {
         return NIP;
@@ -41,34 +40,15 @@ public class Murid extends User implements StudentInformation {
         this.SPP = SPP;
     }
 
-    public int getAngkatan() {
-        return angkatan;
-    }
-
-    public void setAngkatan(int angkatan) {
-        this.angkatan = angkatan;
-    }
+    
 
     public Murid(double SPP, int angkatan, ArrayList<Kelas> listKelas) {
         this.SPP = SPP;
-        this.angkatan = angkatan;
         this.listKelas = listKelas;
         super.setTipe(TipeUser.STUDENT);
     }
     
     public Murid(){}
-    
-    public void gabungKelas(){
-        
-    }
-    
-    public void keluarKelas(){
-        
-    }
-    
-    public void kumpulkanTugas(){
-        
-    }
 
     @Override
     public void cekJadwal() {
