@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import model.Guru;
 import model.Pengumuman;
+import model.Kelas;
 import model.User;
 import model.UserManager;
 import model.TipeUser;
@@ -27,7 +29,7 @@ public class MainController {
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 Pengumuman announcement = new Pengumuman(
-                        rs.getString("judul"), 
+                        rs.getString("judul"),
                         rs.getString("deskripsi"));
                 announcements.add(announcement);
             }
@@ -36,6 +38,7 @@ public class MainController {
         }
         return announcements;
     }
+
     public ArrayList getAllMurid() {
         ArrayList<Murid> listMurid = new ArrayList<>();
         conn.connect();
@@ -56,4 +59,44 @@ public class MainController {
         }
         return listMurid;
     }
+
+    public ArrayList getTeachersByMurid(int id_murid) {
+        ArrayList<Guru> guru = new ArrayList<>();
+        ArrayList<Kelas> listKelas = new ArrayList<>();
+        conn.connect();
+        String query = "SELECT `id_kelas` FROM `murid_kelas WHERE `id_murid` = " + id_murid;
+        try {
+            Statement st = conn.con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            ArrayList<Integer> listIdKelas = new ArrayList<>();
+            while (rs.next()) {
+                listIdKelas.add(rs.getInt("id_kelas"));
+            }
+
+            for (int i = 0; i < listIdKelas.size(); i++) {
+                query = "SELECT * FROM kelas WHERE id_kelas = " + listIdKelas.get(i);
+                rs = st.executeQuery(query);
+                while (rs.next()) {
+                    Kelas newKelas = new Kelas(
+                            rs.getString("nama"),
+                            rs.getString("kode"),
+                            rs.getString("jadwal"));
+                    query = "SELECT * FROM guru WHERE id_guru = " + (rs.getInt("id_guru"));
+                    rs = st.executeQuery(query);
+                    Guru newGuru = new Guru();
+                    newGuru.setNama(rs.getString("nama"));
+                    newGuru.setNik(rs.getString("NIK"));
+                    newGuru.setNoTlp(rs.getString("no_telepon"));
+                    newKelas.setHomeRoomTeacher(newGuru);
+                    listKelas.add(newKelas);
+                    guru.add(newGuru);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return guru;
+    }
+
+    
 }
