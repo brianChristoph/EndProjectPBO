@@ -121,7 +121,7 @@ public class LoginScreen {
                 } else if(option2.isSelected()){
                     new ParentDashboard();
                 } else if(option3.isSelected()){
-                    new ClassMenu();
+                    new TeacherDashboard();
                 } else if(option4.isSelected()){
                     new AdminDashboard();
                 }
