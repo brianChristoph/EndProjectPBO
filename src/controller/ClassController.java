@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import model.Guru;
 import model.Kelas;
 import model.Murid;
+import model.TipeUser;
 import model.User;
 
 /**
@@ -33,15 +34,12 @@ public class ClassController {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
-                Kelas kls = new Kelas();
-                kls.setKode(rs.getString("kode"));
-                kls.setNama(rs.getString("nama"));
-                kls.setJadwal(rs.getString("jadwal"));
-//                kls.setHomeRoomTeacher((Guru)tc.getUser(null, null, rs.getInt("id_guru")));
-//                kls.setArrAbsensiMurid();
-//                kls.setArrPost(dc.getPosts(rs.getInt("id_kelas")));
-                kls.setArrMurid(studentsInClass(rs.getInt("id_kelas")));
-                arrKelas.add(kls);
+                Kelas kelas = new Kelas();
+                kelas.setKode(rs.getString("kode"));
+                kelas.setNama(rs.getString("nama"));
+                kelas.setJadwal(rs.getString("jadwal"));
+                kelas.setHomeRoomTeacher(getGuru(rs.getInt("id_guru")));
+                arrKelas.add(kelas);
             }
         } catch(Exception e) {
             
@@ -49,50 +47,26 @@ public class ClassController {
         return arrKelas;
     }
     
-    public Kelas getKelas(int idKelas, boolean makingArray){
-        if(makingArray == false){
-            conn.connect();
-        }
-        Kelas kls = new Kelas();
-        String query = "SELECT * FROM kelas WHERE id_kelas = " + idKelas;
+    public Guru getGuru(int idGuru){
+        conn.connect();
+        Guru user = new Guru();
+        String query = "SELECT * FROM guru WHERE id_guru = " + idGuru;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
-                DatabaseController dc = new DatabaseController();
-                TeacherController tc = new TeacherController();
-                kls.setKode(rs.getString("kode"));
-                kls.setNama(rs.getString("nama"));
-                kls.setJadwal(rs.getString("jadwal"));
-//                kls.setHomeRoomTeacher((Guru)tc.getUser(null, null, rs.getInt("id_guru")));
-//                kls.setArrAbsensiMurid();
-//                kls.setArrPost(dc.getPosts(rs.getInt("id_kelas")));
-                kls.setArrMurid(studentsInClass(rs.getInt("id_kelas")));
+                user.setId(rs.getInt("id_guru"));
+                user.setNik(rs.getString("nik"));
+                user.setNama(rs.getString("nama"));
+                user.setPassword(rs.getString("password"));
+                user.setNoTlp(rs.getString("no_telepon"));
+                user.setTipe(TipeUser.TEACHER);
             }
-        } catch(SQLException ex) {
-            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-        return kls;
-    }
-    
-    private ArrayList<Murid> studentsInClass(int idKelas){
-        ArrayList<Murid> arrMurid = new ArrayList();
-        String query = "SELECT * FROM murid_kelas WHERE id_kelas = " + idKelas;
-        try {
-            Statement st = conn.con.createStatement();
-            ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
-                MuridController mc = new MuridController();
-                arrMurid.add((Murid)mc.getUser(null, null, rs.getInt("id_murid")));
-            }
-        } catch(SQLException ex) {
-            
-        }
-        return arrMurid;
-    }
-    
-    public void createClass(){
-        
+        conn.disconnect();
+        return user;
     }
     
 }

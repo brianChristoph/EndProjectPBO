@@ -20,6 +20,7 @@ import model.Posting;
 import model.StatusAbsensi;
 import model.TipeUser;
 import model.Tugas;
+import model.UserManager;
 
 /**
  *
@@ -27,12 +28,14 @@ import model.Tugas;
  */
 public class TeacherController {
 
-    ArrayList<Kelas> arrKelas = new ArrayList();
     DatabaseHandler conn = new DatabaseHandler();
     
     public Guru getUser(String nik, String password){
+        conn.connect();
         Guru user = new Guru();
-        user = getStringTypeData(user, nik, password);
+        user = getNonArrayDataType(user, nik, password);
+        user.setAjarKelas(getTaughtClass(user, user.getId()));
+        conn.disconnect();
         return user;
     }
     
@@ -40,12 +43,7 @@ public class TeacherController {
         return "SELECT * FROM guru WHERE nik = '" + nik + "' && password = '" + password + "'";
     }
     
-    private String searchQuery(int idGuru){
-        return "SELECT * FROM guru WHERE id_guru = " + idGuru;
-    }
-    
-    public Guru getStringTypeData(Guru user, String nik, String password){
-        conn.connect();
+    private Guru getNonArrayDataType(Guru user, String nik, String password){
         String query = loginQuery(nik, password);
         try {
             Statement st = conn.con.createStatement();
@@ -61,13 +59,12 @@ public class TeacherController {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        conn.disconnect();
         return user;
     }
     
-    private ArrayList<Kelas> getTaughtClass(Guru user, int id){
+    private ArrayList<Kelas> getTaughtClass(Guru user, int idGuru){
         ArrayList<Kelas> arrClasses = new ArrayList();
-        String query = searchQuery(id);
+        String query = "SELECT * FROM kelas WHERE id_guru = " + idGuru;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -78,9 +75,9 @@ public class TeacherController {
                 taughtClass.setNama(rs.getString("nama"));
                 taughtClass.setJadwal(rs.getString("jadwal"));
                 taughtClass.setHomeRoomTeacher(user);
-//                taughtClass.setArrAbsensiMurid();
+                taughtClass.setArrAbsensiMurid(getAbsensiMurid(rs.getInt("id_kelas")));
                 taughtClass.setArrPost(getPosts(rs.getInt("id_kelas")));
-                taughtClass.setArrMurid(getStudents(rs.getInt("id_kelas")));
+                taughtClass.setArrMurid(getStudentsInClass(rs.getInt("id_kelas")));
                 arrClasses.add(taughtClass);
             }
         } catch (SQLException ex) {
@@ -119,9 +116,9 @@ public class TeacherController {
         return arrPosts;
     }
     
-    private ArrayList<Murid> getStudents(int idKelas){
+    private ArrayList<Murid> getStudentsInClass(int idKelas){
         ArrayList<Murid> arrStudents = new ArrayList();
-        String query = "SELECT * FROM mruid_kelas WHERE id_kelas = " + idKelas;
+        String query = "SELECT * FROM murid_kelas WHERE id_kelas = " + idKelas;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -137,7 +134,7 @@ public class TeacherController {
     
     private Murid getStudent(int idMurid){
         Murid murid = new Murid();
-        String query = "SLEECT * FROM murid WHERE id_murid = " + idMurid;
+        String query = "SELECT * FROM murid WHERE id_murid = " + idMurid;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -154,7 +151,6 @@ public class TeacherController {
     }
     
     private ArrayList<Absensi> getAbsensiMurid(int idKelas){
-        conn.connect();
         ArrayList<Absensi> arrAbsensi = new ArrayList();
         String query = "SELECT * FROM absensi WHERE id_kelas = " + idKelas;
         try {
@@ -168,7 +164,6 @@ public class TeacherController {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        conn.disconnect();
         return arrAbsensi;
     }
 
@@ -192,10 +187,11 @@ public class TeacherController {
                 if(pengguna.getAjarKelas().get(i).getId() == idKelas){
                     pengguna.getAjarKelas().get(i).setArrPost(getPosts(idKelas));
                     pengguna.getAjarKelas().get(i).setArrAbsensiMurid(getAbsensiMurid(idKelas));
-                    pengguna.getAjarKelas().get(i).setArrMurid(getStudents(idKelas));
+                    pengguna.getAjarKelas().get(i).setArrMurid(getStudentsInClass(idKelas));
                 }
             }
         }
+        UserManager.getInstance().setUser(pengguna);
     }
 
     public void deletePost(Guru pengguna, int idKelas, int idPost) {
