@@ -37,14 +37,16 @@ public class TeachersMenu {
         coloumNoTlp.setBounds(296,250,90,13);
         ArrayList<Guru> guru = c.getTeachersByMurid(id);
         for (int i = 0; i < guru.size(); i++) {
-            JLabel namaGuru = new JLabel(guru.get(i).getNama());
+            JLabel namaGuru = new JLabel(guru.get(i).getNama() + ": ");
             JLabel noTlpGuru = new JLabel(guru.get(i).getNoTlp());
             namaGuru.setBounds(46, tambah, 108, 12);
-            noTlpGuru.setBounds(70, tambah, 235, 12);
-            tambah += 60;
-            f.add(noTlpGuru);
+            noTlpGuru.setBounds(150, tambah, 235, 12);
+            tambah += 20;
+            f.add(namaGuru);
             f.add(noTlpGuru);
         }
+        f.add(coloumGuru);
+        f.add(coloumNoTlp);
         f.setLayout(null);
         f.setSize(432,768);
         f.setVisible(true);

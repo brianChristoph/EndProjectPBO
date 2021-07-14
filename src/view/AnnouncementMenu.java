@@ -42,6 +42,8 @@ public class AnnouncementMenu {
         for (int i = 0; i < announcement.size(); i++) {
             JLabel title = new JLabel(announcement.get(i).getJudul());
             JLabel desc = new JLabel(announcement.get(i).getDeskripsi());
+            title.setBounds(61,250,230,16);
+            desc.setBounds(297,250,65,16);
             f.add(title);
             f.add(desc);
         }

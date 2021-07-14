@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import controller.MainController;
 /**
  *
  * @author jonat
@@ -19,6 +20,7 @@ public class AddAnnouncement {
 
     public AddAnnouncement() {
         JFrame f = new JFrame("Add Announcement");
+        MainController c = new MainController();
         
         JLabel titleLabel = new JLabel("Title");
         titleLabel.setBounds(63,230,45,16);
@@ -37,7 +39,7 @@ public class AddAnnouncement {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AnnouncementMenu();
-                
+                c.AddPengumuman(titleInput.getText(), descriptionInput.getText());
                 f.setVisible(false);
             }
         });

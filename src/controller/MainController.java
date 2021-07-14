@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -67,13 +68,14 @@ public class MainController {
 
     public void AddPengumuman(String judul, String deskripsi) {
 	String query = "INSERT INTO `pengumuman`"
-		+ "(`id_pengumuman`, `judul`, `deskripsi`) "
+		+ " (`judul`, `deskripsi`) "
 		+ "VALUES "
-		+ "(NULL, '" + judul + "', '" + deskripsi + " ')";
+		+ "('" + judul + "', '" + deskripsi + "')";
+
 	conn.connect();
 	try {
-	    Statement st = conn.con.createStatement();
-	    ResultSet rs = st.executeQuery(query);
+	    PreparedStatement preparedStmt = conn.con.prepareStatement(query);
+	    preparedStmt.execute();
 	} catch (SQLException e) {
 	    e.printStackTrace();
 	}
@@ -176,13 +178,15 @@ public class MainController {
 			    rs.getString("jadwal"));
 		    query = "SELECT * FROM guru WHERE id_guru = " + (rs.getInt("id_guru"));
 		    rs = st.executeQuery(query);
-		    Guru newGuru = new Guru();
-		    newGuru.setNama(rs.getString("nama"));
-		    newGuru.setNik(rs.getString("NIK"));
-		    newGuru.setNoTlp(rs.getString("no_telepon"));
-		    newKelas.setHomeRoomTeacher(newGuru);
+		    while (rs.next()) {
+			Guru newGuru = new Guru();
+			newGuru.setNama(rs.getString("nama"));
+			newGuru.setNik(rs.getString("NIK"));
+			newGuru.setNoTlp(rs.getString("no_telepon"));
+			newKelas.setHomeRoomTeacher(newGuru);
+			guru.add(newGuru);
+		    }
 		    listKelas.add(newKelas);
-		    guru.add(newGuru);
 		}
 	    }
 	} catch (SQLException e) {
