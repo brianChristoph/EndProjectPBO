@@ -1,6 +1,6 @@
 package controller;
 
-import java.util.Date;
+import java.sql.Date;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -197,13 +197,16 @@ public class MuridController {
     
     public void submitTugas(int idMurid, Tugas tugas) {
         conn.connect();
+        long millis=System.currentTimeMillis();  
+        java.sql.Date date=new java.sql.Date(millis); 
+        System.out.println(date);
         String query = "INSERT INTO `tugas`(`id_murid`,`terkumpulkan`, `tanggal_dikumpulkan`) "
                 + "VALUES (?,?,?)";
         try {
             PreparedStatement st = conn.con.prepareStatement(query);
             st.setInt(1, UserManager.getInstance().getUser().getId());
             st.setInt(2, 1);
-            st.setDate(3, (java.sql.Date) new Date());
+            st.setDate(3, date);
             st.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
