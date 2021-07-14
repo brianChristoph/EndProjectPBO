@@ -24,27 +24,26 @@ public class ReportView {
             Header header = new Header(UserManager.getInstance().getUser().getNama(), "Report");
             f.add(header.getHeader());
 
-            ArrayList<Tugas> reports = controller.getReportsFromDB();
+            ArrayList<Kelas> reports = controller.getReportsFromDB();
 
-//            int tambah = 253;
-//            int tambahJadwal = 277;
-//            for (int i = 0; i < reports.size(); i++) {
-//                JLabel kelas = new JLabel("Kelas " + reports.get(i).getNama_kelas());
-//                JLabel jadwal = new JLabel("Nilai " + reports.get(i).getNilai());
-//                kelas.setBounds(46, tambah, 108, 12);
-//                jadwal.setBounds(70, tambahJadwal, 235, 12);
-//                tambah += 60;
-//                tambahJadwal += 60;
-//                f.add(kelas);
-//                f.add(jadwal);
-//
-//            }
+            int tambah = 253;
+            int tambahNilai = 277;
+            for (int i = 0; i < reports.size(); i++) {
+                JLabel kelas = new JLabel("Kelas " + reports.get(i).getNama());
+                JLabel nilai = new JLabel("Nilai " + reports.get(i).getNa());
+                kelas.setBounds(46, tambah, 108, 12);
+                nilai.setBounds(70, tambahNilai, 235, 12);
+                tambah += 60;
+                tambahNilai += 60;
+                f.add(kelas);
+                f.add(nilai);
+
+            }
 
             f.setLayout(null);
             f.setVisible(true);
-
-            f.setVisible(true);
         } catch (NullPointerException e) {
+            e.printStackTrace();
             ErrorView.printError("No Data");
         }
 
