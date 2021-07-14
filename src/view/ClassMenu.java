@@ -51,12 +51,6 @@ public class ClassMenu {
 //        JScrollPane scrollableTextArea = new JScrollPane(f); 
 //        scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 //        f.getContentPane().add(scrollableTextArea);
-
-        ArrayList<Kelas> arrK = new ArrayList();
-        Kelas k = new Kelas();
-        k.setNama("pbo");
-        k.setJadwal("senin");
-        arrK.add(k);
         
         User user = UserManager.getInstance().getUser();
         if(user instanceof Murid){
@@ -64,7 +58,6 @@ public class ClassMenu {
             f = showListKelas(murid.getListKelas(), f);
         } else if (user instanceof Guru){
             Guru guru = (Guru) user;
-            guru.setAjarKelas(arrK);
             f = showListKelas(guru.getAjarKelas(), f);
         }
 
@@ -75,7 +68,6 @@ public class ClassMenu {
     
     private JFrame showListKelas(ArrayList<Kelas> arrKelas, JFrame frame){
         JButton[] newButton = new JButton[arrKelas.size()];
-        System.out.println("hello");
         for (int i = 0; i < arrKelas.size(); i++) {
             Kelas tempClass = arrKelas.get(i);
             if(arrKelas.get(i) != null){
@@ -92,7 +84,6 @@ public class ClassMenu {
                 newButton[i].addActionListener(new ActionListener() {
                    @Override
                    public void actionPerformed(ActionEvent e) {
-                       System.out.println(tempClass.getNama());
                        createViewClass(tempClass);
                        frame.setVisible(false);
                    }
