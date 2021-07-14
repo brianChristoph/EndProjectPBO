@@ -21,7 +21,7 @@ public class AttendanceView {
 	f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	try {
-	    Header header = new Header(UserManager.getInstance().getUser().getNama(), "Absensi");
+	    Header header = new Header("Absensi");
 	    f.add(header.getHeader());
 
 	    ArrayList<Absensi> listAbsensi = controller.getAbsensiFromDB();
