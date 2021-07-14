@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -39,6 +40,23 @@ public class MainController {
         return announcements;
     }
 
+    public void AddPengumuman(String judul, String deskripsi) {
+        
+        String query = "INSERT INTO `pengumuman`"
+                + " (`judul`, `deskripsi`) "
+                + "VALUES "
+                + "('" + judul + "', '" + deskripsi + "')";
+
+      
+        conn.connect();
+        try {
+            PreparedStatement preparedStmt = conn.con.prepareStatement(query);
+            preparedStmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ArrayList getAllMurid() {
         ArrayList<Murid> listMurid = new ArrayList<>();
         conn.connect();
@@ -64,7 +82,7 @@ public class MainController {
         ArrayList<Guru> guru = new ArrayList<>();
         ArrayList<Kelas> listKelas = new ArrayList<>();
         conn.connect();
-        String query = "SELECT `id_kelas` FROM `murid_kelas WHERE `id_murid` = " + id_murid;
+        String query = "SELECT `id_kelas` FROM `murid_kelas` WHERE `id_murid` = " + id_murid;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
@@ -83,13 +101,15 @@ public class MainController {
                             rs.getString("jadwal"));
                     query = "SELECT * FROM guru WHERE id_guru = " + (rs.getInt("id_guru"));
                     rs = st.executeQuery(query);
-                    Guru newGuru = new Guru();
-                    newGuru.setNama(rs.getString("nama"));
-                    newGuru.setNik(rs.getString("NIK"));
-                    newGuru.setNoTlp(rs.getString("no_telepon"));
-                    newKelas.setHomeRoomTeacher(newGuru);
+                    while (rs.next()) {
+                        Guru newGuru = new Guru();
+                        newGuru.setNama(rs.getString("nama"));
+                        newGuru.setNik(rs.getString("NIK"));
+                        newGuru.setNoTlp(rs.getString("no_telepon"));
+                        newKelas.setHomeRoomTeacher(newGuru);
+                        guru.add(newGuru);
+                    }
                     listKelas.add(newKelas);
-                    guru.add(newGuru);
                 }
             }
         } catch (SQLException e) {
@@ -98,5 +118,4 @@ public class MainController {
         return guru;
     }
 
-    
 }
