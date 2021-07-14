@@ -7,6 +7,7 @@ package view;
 
 import model.User;
 import javax.swing.*;
+import model.UserManager;
 
 /**
  *
@@ -16,10 +17,9 @@ public class Header {
 
     static JPanel header = new JPanel();
 
-    public Header(String user, String sectionTitle) {
-        String name = user;
+    public Header(String sectionTitle) {
         JLabel welcome = new JLabel("Welcome, ");
-        JLabel userName = new JLabel(name);
+        JLabel userName = new JLabel(UserManager.getInstance().getUser().getNama());
         JLabel section = new JLabel(sectionTitle);
       
         welcome.setBounds(156, 72, 120, 32);
