@@ -91,8 +91,6 @@ public class ParentDashboard {
         f.setSize(432, 768);
         f.setLayout(null);
         f.setVisible(true);
-    }    
-    public static void main(String[] args) {
-        new ParentDashboard();
     }
+    
 }
