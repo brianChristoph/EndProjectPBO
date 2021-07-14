@@ -49,8 +49,4 @@ public class ReportView {
 
     }
 
-    public static void main(String[] args) {
-        new ReportView();
-    }
-
 }

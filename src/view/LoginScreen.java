@@ -127,9 +127,7 @@ public class LoginScreen {
                 }
             }
         });
+    
     }
     
-    public static void main(String[] args) {
-        new LoginScreen();
-    }
 }
