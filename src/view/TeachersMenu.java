@@ -24,30 +24,30 @@ import model.UserManager;
 public class TeachersMenu {
 
     public TeachersMenu() {
-	JFrame f = new JFrame();
-	MainController c = new MainController();
-	ParentController pc = new ParentController();
-	int id = 0;
-	if (UserManager.getInstance().getUser().getTipe() == TipeUser.PARENT) {
-	    id = pc.getAnak().getId();
-	} else if (UserManager.getInstance().getUser().getTipe() == TipeUser.STUDENT) {
-	    id = UserManager.getInstance().getUser().getId();
-	}
-	int tambah = 253;
-	JLabel coloumGuru = new JLabel("Guru");
-	JLabel coloumNoTlp = new JLabel("No Telepon");
-	coloumGuru.setBounds(62, 250, 220, 13);
-	coloumNoTlp.setBounds(296, 250, 90, 13);
-	ArrayList<Guru> guru = c.getTeachersByMurid(id);
-	for (int i = 0; i < guru.size(); i++) {
-	    JLabel namaGuru = new JLabel(guru.get(i).getNama() + ": ");
-	    JLabel noTlpGuru = new JLabel(guru.get(i).getNoTlp());
-	    namaGuru.setBounds(46, tambah, 108, 12);
-	    noTlpGuru.setBounds(150, tambah, 235, 12);
-	    tambah += 20;
-	    f.add(namaGuru);
-	    f.add(noTlpGuru);
-	}
+       JFrame f = new JFrame();
+        MainController c = new MainController();
+        ParentController pc = new ParentController();
+        int id = 0;
+        if (UserManager.getInstance().getUser().getTipe() == TipeUser.PARENT) {
+            id = pc.getAnak(UserManager.getInstance().getUser().getId()).getId();
+        } else if (UserManager.getInstance().getUser().getTipe() == TipeUser.STUDENT) {
+            id = UserManager.getInstance().getUser().getId();
+        }
+        int tambah = 253;
+        JLabel coloumGuru = new JLabel("Guru");
+        JLabel coloumNoTlp = new JLabel("No Telepon");
+        coloumGuru.setBounds(62,250,220,13);
+        coloumNoTlp.setBounds(296,250,90,13);
+        ArrayList<Guru> guru = c.getTeachersByMurid(id);
+        for (int i = 0; i < guru.size(); i++) {
+            JLabel namaGuru = new JLabel(guru.get(i).getNama() + ": ");
+            JLabel noTlpGuru = new JLabel(guru.get(i).getNoTlp());
+            namaGuru.setBounds(46, tambah, 108, 12);
+            noTlpGuru.setBounds(150, tambah, 235, 12);
+            tambah += 20;
+            f.add(namaGuru);
+            f.add(noTlpGuru);
+        }
 
 	Buttons button = new Buttons();
 	button.back.setLocation(295, 660);
