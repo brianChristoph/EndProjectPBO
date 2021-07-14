@@ -5,6 +5,8 @@ import javax.swing.*;
 import model.*;
 import controller.AttendanceController;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -47,6 +49,17 @@ public class AttendanceView {
 		f.add(absensi);
 	    }
 
+	    JButton back = new JButton("Back");
+	    back.setBounds(295, 660, 80, 36);
+	    f.add(back);
+	    back.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		    f.setVisible(false);
+		    new StudentDashboard();
+		}
+	    });
+
 	    f.setLayout(null);
 	    f.setVisible(true);
 	} catch (NullPointerException e) {
@@ -54,5 +67,5 @@ public class AttendanceView {
 	}
 
     }
-    
+
 }
