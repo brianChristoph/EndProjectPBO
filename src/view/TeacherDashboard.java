@@ -33,7 +33,8 @@ public class TeacherDashboard {
             @Override
             public void actionPerformed(ActionEvent e) {
                 f.add(Header.header);
-                
+                new ClassMenu();
+                f.setVisible(false);
             }
         });
         
@@ -41,7 +42,8 @@ public class TeacherDashboard {
         button.calendar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new CalendarMenu();
+                new CalendarMenu();
+                f.setVisible(false);
             }
         });
         
@@ -50,6 +52,7 @@ public class TeacherDashboard {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new TeachersMenu();
+                f.setVisible(false);
             }
         });
         button.announcement.setLocation(243, 384);
@@ -57,6 +60,7 @@ public class TeacherDashboard {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                new ReportMenu();
+                f.setVisible(false);
             }
         });
         

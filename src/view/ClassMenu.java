@@ -74,29 +74,36 @@ public class ClassMenu {
     }
     
     private JFrame showListKelas(ArrayList<Kelas> arrKelas, JFrame frame){
+        JButton[] newButton = new JButton[arrKelas.size()];
+        System.out.println("hello");
         for (int i = 0; i < arrKelas.size(); i++) {
+            Kelas tempClass = arrKelas.get(i);
             if(arrKelas.get(i) != null){
-                JButton newButton = new JButton(arrKelas.get(i).getNama());
-                newButton.setBounds(148, 265+(100*i), 108, 20);
+                newButton[i] = new JButton(arrKelas.get(i).getNama());
+                newButton[i].setBounds(148, 265+(100*i), 108, 20);
                 
                 JLabel newLabel = new JLabel();
                 newLabel.setText(arrKelas.get(i).getJadwal());
                 newLabel.setBounds(148, 290+(119*i), 235, 20);
                 
-                frame.add(newButton);
+                frame.add(newButton[i]);
                 frame.add(newLabel);
                 
-                newButton.addActionListener(new ActionListener() {
+                newButton[i].addActionListener(new ActionListener() {
                    @Override
                    public void actionPerformed(ActionEvent e) {
-                       new ViewClass();
-//                       new ViewClass(arrKelas.get(i));
+                       System.out.println(tempClass.getNama());
+                       createViewClass(tempClass);
                        frame.setVisible(false);
                    }
                 });
             }
         }
         return frame;
+    }
+    
+    private void createViewClass(Kelas kelas){
+        new ViewClass(kelas);
     }
     
 }
