@@ -43,6 +43,7 @@ public class ViewTugas {
         judulTugas.setBounds(149, 265, 108, 12);
         frame.add(judulTugas);
         
+        Buttons button = new Buttons();
         JButton back = new JButton("Back");
         
         if(UserManager.getInstance().getUser() instanceof Murid){
@@ -70,7 +71,7 @@ public class ViewTugas {
                    }
                 });
             }
-            back.setBounds(130, 350, 80, 36);
+            button.back.setLocation(130, 350);
         } else {
             if(tugas.getNilai() == 0){
                 JLabel deskTugas = new JLabel();
@@ -112,18 +113,17 @@ public class ViewTugas {
                        frame.setVisible(false);
                    }
                 });
-                
-                back.setBounds(130, 400, 80, 36);
             } else {
                 JLabel nilaiTugas = new JLabel();
                 nilaiTugas.setText("Nilai : " + tugas.getNilai());
                 nilaiTugas.setBounds(149, 290, 235, 13);
                 frame.add(nilaiTugas);
             }
+            button.back.setLocation(130, 400);
         }
         
-        frame.add(back);
-        back.addActionListener(new ActionListener(){
+        frame.add(button.back);
+        button.back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 frame.setVisible(false);

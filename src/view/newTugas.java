@@ -60,10 +60,10 @@ public class newTugas {
             }
         });
         
-        JButton back = new JButton("Back");
-        back.setBounds(130, 350, 80, 36);
-        frame.add(back);
-        back.addActionListener(new ActionListener(){
+        Buttons button = new Buttons();
+        button.back.setLocation(130, 350);
+        frame.add(button.back);
+        button.back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
                 frame.setVisible(false);
