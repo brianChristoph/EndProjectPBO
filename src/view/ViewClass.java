@@ -34,13 +34,14 @@ public class ViewClass {
         for (Posting post : kls.getArrPost()){
             if(post != null){
                 if(post instanceof Tugas){
+                    Tugas tgs = (Tugas) post;
                     JButton newButton = new JButton(post.getJudul());
                     newButton.setBounds(148, 265+(100*i), 108, 20);
                     f.add(newButton);
                     newButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e){
-//                            new ViewTugas();
+                            new ViewTugas(tgs);
                             f.setVisible(false);
                         }
                     });
