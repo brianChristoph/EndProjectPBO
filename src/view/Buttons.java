@@ -14,8 +14,8 @@ import javax.swing.JButton;
 public class Buttons {
     JButton manageUsers = new JButton("User Management");
     JButton manageClasses = new JButton("Class Management");
-    JButton announcement = new JButton("User Management");
-    JButton attandance = new JButton("Attandance");
+    JButton announcement = new JButton("Announcement");
+    JButton attendance = new JButton("attendance");
     JButton classes = new JButton ("Classes");
     JButton payment = new JButton ("Payment");
     JButton calendar = new JButton ("Calendar");
@@ -29,7 +29,7 @@ public class Buttons {
         
         announcement.setSize(131, 120);
         
-        attandance.setSize(131, 120);
+        attendance.setSize(131, 120);
         
         classes.setSize(131, 120);
         
