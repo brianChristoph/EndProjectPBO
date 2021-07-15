@@ -37,6 +37,7 @@ public class newTugas {
         JTextField judul = new JTextField();
         judul.setBounds(63, 386, 306, 33);
         frame.add(judul);
+        
         JTextField deskripsi = new JTextField();
         deskripsi.setBounds(63, 386, 306, 33);
         frame.add(deskripsi);
