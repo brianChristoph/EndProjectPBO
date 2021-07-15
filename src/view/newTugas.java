@@ -58,6 +58,7 @@ public class newTugas {
                 TeacherController tc = new TeacherController();
                 tc.createNewTugas(kls.getId(), judul.getText(), deskripsi.getText(), selectedDate);
                 frame.setVisible(false);
+                new ViewClass(kls);
             }
         });
         
