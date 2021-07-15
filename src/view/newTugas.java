@@ -34,23 +34,23 @@ public class newTugas {
         identity.setFont(roboto);
         frame.add(identity);
         
-        JTextField judul = new JTextField();
-        judul.setBounds(63, 386, 306, 33);
+        JTextField judul = new JTextField("Judul");
+        judul.setBounds(63, 265, 306, 33);
         frame.add(judul);
-        
-        JTextField deskripsi = new JTextField();
-        deskripsi.setBounds(63, 386, 306, 33);
+        JTextField deskripsi = new JTextField("Desc");
+        deskripsi.setBounds(63, 310, 306, 33);
         frame.add(deskripsi);
         
         UtilDateModel model = new UtilDateModel();
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
         JDatePickerImpl deadline = new JDatePickerImpl(datePanel);
+        deadline.setBounds(63, 350, 306, 33);
         frame.add(deadline);
         
         Date selectedDate = (Date) deadline.getModel().getValue();
         
         JButton create = new JButton("Post");
-        create.setBounds(235, 350, 80, 36);
+        create.setBounds(235, 400, 80, 36);
         frame.add(create);
         create.addActionListener(new ActionListener(){
             @Override
@@ -62,7 +62,7 @@ public class newTugas {
         });
         
         Buttons button = new Buttons();
-        button.back.setLocation(130, 350);
+        button.back.setLocation(130, 400);
         frame.add(button.back);
         button.back.addActionListener(new ActionListener(){
             @Override
