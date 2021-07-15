@@ -69,6 +69,7 @@ public class CreateNewClass {
         
         Buttons button = new Buttons();
         button.back.setLocation(265, 660);
+	frame.add(button.back);
         button.back.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
