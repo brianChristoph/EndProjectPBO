@@ -48,7 +48,7 @@ public class ParentController {
     public Murid getAnak(int id_ortu) {
         Murid anak = new Murid();
         conn.connect();
-        String query = "SELECT * FROM murid WHERE nip ='" + id_ortu + "'";
+        String query = "SELECT * FROM murid WHERE id_ortu ='" + id_ortu + "'";
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);

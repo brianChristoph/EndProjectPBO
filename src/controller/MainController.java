@@ -231,7 +231,7 @@ public class MainController {
                 newAdmin.setId(rs.getInt("id_admin"));
                 newAdmin.setPassword(rs.getString("password"));
                 newAdmin.setNik(rs.getString("nik"));
-                newAdmin.setNoTlp(rs.getString("no_telepon"));
+                newAdmin.setNoTlp(rs.getString("noTelp"));
                 newAdmin.setTipe(TipeUser.PARENT);
                 admin.add(newAdmin);
 	    }
@@ -250,7 +250,7 @@ public class MainController {
 	    while (rs.next()) {
 		Kelas newKelas = new Kelas();
                 newKelas.setNama(rs.getString("nama"));
-                newKelas.setId(rs.getInt("id_admin"));
+                newKelas.setId(rs.getInt("id_kelas"));
                 newKelas.setJadwal(rs.getString("jadwal"));
                 newKelas.setKode(rs.getString("kode"));
                 kelas.add(newKelas);
