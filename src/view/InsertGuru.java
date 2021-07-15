@@ -25,10 +25,6 @@ public class InsertGuru {
         JFrame frame = new JFrame();
         Font roboto = new Font("Roboto", Font.PLAIN, 18);
         
-        Header header = new Header("Insert Guru");
-        JPanel head = header.getHeader();
-        frame.add(head);
-        
         JLabel nama = new JLabel ("Nama");
         nama.setBounds(60, 72, 130, 32);
         nama.setFont(roboto);
