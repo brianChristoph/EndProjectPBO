@@ -110,7 +110,8 @@ public class ViewTugas {
                    public void actionPerformed(ActionEvent e){
                        TeacherController tc = new TeacherController();
                        tc.inputGrade(kls.getId(), tugas.getId(), tugas.getIdMurid(), (int) nilai.getValue());
-                       frame.setVisible(false);
+                       new ViewClass(kls);
+		       frame.setVisible(false);
                    }
                 });
             } else {
