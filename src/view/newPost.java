@@ -46,6 +46,7 @@ public class newPost {
                 TeacherController tc = new TeacherController();
                 tc.createNewPost(kls.getId(), judul.getText(), deskripsi.getText());
                 frame.setVisible(false);
+                new ViewClass(kls);
             }
         });
         
