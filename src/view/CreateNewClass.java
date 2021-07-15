@@ -76,11 +76,10 @@ public class CreateNewClass {
                 new ClassMenu();
             }
         });
-//        namaKelas.setBounds();
-
-        // createKode random/input
         
-        
+        frame.setSize(432, 768);
+        frame.setLayout(null);
+        frame.setVisible(true);
         
     }
     
