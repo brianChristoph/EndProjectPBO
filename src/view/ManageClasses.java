@@ -26,10 +26,12 @@ public class ManageClasses {
         int y = 100;
         for (int i = 0; i < kelas.size(); i++) {
             JLabel title = new JLabel(kelas.get(i).getNama());
-            JLabel Jadwal = new JLabel(kelas.get(i).getJadwal());
+            JLabel jadwal = new JLabel(kelas.get(i).getJadwal());
             title.setBounds(25,y,200,30);
+            jadwal.setBounds(50,y,200,30);
             y += 35;
             f.add(title);
+            f.add(jadwal);
         }
         Buttons button = new Buttons();
         button.back.setLocation(295, 660);

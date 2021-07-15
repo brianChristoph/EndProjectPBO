@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import model.Murid;
 import java.util.Date;
+import javax.swing.JPanel;
 import model.UserManager;
 
 /**
@@ -23,6 +24,9 @@ public class PaymentMenu {
     public PaymentMenu() {
         JFrame f = new JFrame("Payment Menu");
         ParentController c = new ParentController();
+         Header header = new Header("Student Dashboard");
+        JPanel head = header.getHeader();
+        f.add(head);
         Murid murid = c.getAnak(UserManager.getInstance().getUser().getId());
         double spp = murid.getSPP();
         Date date = new Date();

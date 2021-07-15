@@ -29,8 +29,8 @@ import model.UserManager;
 public class TeacherController {
 
     DatabaseHandler conn = new DatabaseHandler();
-    
-    public Guru getUser(String nik, String password){
+
+    public Guru getUser(String nik, String password) {
         conn.connect();
         Guru user = new Guru();
         user = getNonArrayDataType(user, nik, password);
@@ -38,17 +38,17 @@ public class TeacherController {
         conn.disconnect();
         return user;
     }
-    
-    private String loginQuery(String nik, String password){
+
+    private String loginQuery(String nik, String password) {
         return "SELECT * FROM guru WHERE nik = " + nik + " && password = '" + password + "'";
     }
-    
-    private Guru getNonArrayDataType(Guru user, String nik, String password){
+
+    private Guru getNonArrayDataType(Guru user, String nik, String password) {
         String query = loginQuery(nik, password);
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 user.setId(rs.getInt("id_guru"));
                 user.setNik(rs.getString("nik"));
                 user.setNama(rs.getString("nama"));
@@ -61,14 +61,14 @@ public class TeacherController {
         }
         return user;
     }
-    
-    private ArrayList<Kelas> getTaughtClass(Guru user, int idGuru){
+
+    private ArrayList<Kelas> getTaughtClass(Guru user, int idGuru) {
         ArrayList<Kelas> arrClasses = new ArrayList();
         String query = "SELECT * FROM kelas WHERE id_guru = " + idGuru;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 Kelas taughtClass = new Kelas();
                 taughtClass.setId(rs.getInt("id_kelas"));
                 taughtClass.setKode(rs.getString("kode"));
@@ -85,14 +85,14 @@ public class TeacherController {
         }
         return arrClasses;
     }
-    
-    private ArrayList<Posting> getPosts(int idKelas){
+
+    private ArrayList<Posting> getPosts(int idKelas) {
         ArrayList<Posting> arrPosts = new ArrayList();
         try {
             String queryPost = "SELECT * FROM post WHERE id_kelas = " + idKelas;
             Statement st = conn.con.createStatement();
             ResultSet rPost = st.executeQuery(queryPost);
-            while(rPost.next()){
+            while (rPost.next()) {
                 Posting post = new Posting();
                 post.setId(rPost.getInt("id_post"));
                 post.setJudul(rPost.getString("judul"));
@@ -101,7 +101,7 @@ public class TeacherController {
             }
             String queryTugas = "SELECT * FROM tugas WHERE id_kelas = " + idKelas;
             ResultSet rTugas = st.executeQuery(queryTugas);
-            while(rTugas.next()){
+            while (rTugas.next()) {
                 Tugas tgs = new Tugas();
                 tgs.setId(rTugas.getInt("id_tugas"));
                 tgs.setIdMurid(rTugas.getInt("id_murid"));
@@ -109,23 +109,23 @@ public class TeacherController {
                 tgs.setDeskripsi(rTugas.getString("deskripsi"));
                 tgs.setTanggalPengumpulan(rTugas.getDate("tanggal_pengumpulan"));
                 tgs.setTanggalDikumpulkan(rTugas.getDate("tanggal_dikumpulkan"));
-                tgs.setTerkumpulkan(rTugas.getInt("terkumpulkan")==1?true:false);
+                tgs.setTerkumpulkan(rTugas.getInt("terkumpulkan") == 1 ? true : false);
                 tgs.setNilai(rTugas.getInt("nilai"));
                 arrPosts.add(tgs);
             }
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return arrPosts;
     }
-    
-    private ArrayList<Murid> getStudentsInClass(int idKelas){
+
+    private ArrayList<Murid> getStudentsInClass(int idKelas) {
         ArrayList<Murid> arrStudents = new ArrayList();
         String query = "SELECT * FROM murid_kelas WHERE id_kelas = " + idKelas;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 Murid student = getStudent(rs.getInt("id_murid"));
                 arrStudents.add(student);
             }
@@ -134,14 +134,14 @@ public class TeacherController {
         }
         return arrStudents;
     }
-    
-    public Murid getStudent(int idMurid){
+
+    public Murid getStudent(int idMurid) {
         Murid murid = new Murid();
         String query = "SELECT * FROM murid WHERE id_murid = " + idMurid;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 murid.setId(rs.getInt("id_murid"));
                 murid.setNIP(rs.getString("nip"));
                 murid.setNama(rs.getString("nama"));
@@ -152,14 +152,14 @@ public class TeacherController {
         }
         return murid;
     }
-    
-    private ArrayList<Absensi> getAbsensiMurid(int idKelas){
+
+    private ArrayList<Absensi> getAbsensiMurid(int idKelas) {
         ArrayList<Absensi> arrAbsensi = new ArrayList();
         String query = "SELECT * FROM absensi WHERE id_kelas = " + idKelas;
         try {
             Statement st = conn.con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 Absensi kehadiran = new Absensi();
                 kehadiran.setDate(rs.getDate("tanggal"));
                 kehadiran.setHadir(rs.getInt("hadir") == 1 ? StatusAbsensi.HADIR : StatusAbsensi.ALPHA);
@@ -169,8 +169,8 @@ public class TeacherController {
         }
         return arrAbsensi;
     }
-    
-    public void createNewKelas(Guru guru, String nama, String kode, String jadwal){
+
+    public void createNewKelas(Guru guru, String nama, String kode, String jadwal) {
         conn.connect();
         String query = "INSERT INTO kelas (`id_guru`, `nama`, `kode`, `jadwal`) VALUES (?,?,?,?)";
         try {
@@ -198,10 +198,10 @@ public class TeacherController {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        updateUserData((Guru)UserManager.getInstance().getUser(), idKelas);
+        updateUserData((Guru) UserManager.getInstance().getUser(), idKelas);
     }
-    
-    public void createNewTugas(int idKelas, String judul, String deskripsi, Date deadline){
+
+    public void createNewTugas(int idKelas, String judul, String deskripsi, Date deadline) {
         conn.connect();;
         String query = "INSERT INTO `tugas`(`judul`, `deskripsi`, `tanggal_pengumpulan`, `id_kelas`) VALUES (?,?,?,?)";
         try {
@@ -214,13 +214,13 @@ public class TeacherController {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        updateUserData((Guru)UserManager.getInstance().getUser(), idKelas);
+        updateUserData((Guru) UserManager.getInstance().getUser(), idKelas);
     }
-    
-    public void updateUserData(Guru pengguna, int idKelas){
+
+    public void updateUserData(Guru pengguna, int idKelas) {
         for (int i = 0; i < pengguna.getAjarKelas().size(); i++) {
-            if(pengguna.getAjarKelas().get(i) != null){
-                if(pengguna.getAjarKelas().get(i).getId() == idKelas){
+            if (pengguna.getAjarKelas().get(i) != null) {
+                if (pengguna.getAjarKelas().get(i).getId() == idKelas) {
                     pengguna.getAjarKelas().get(i).setArrPost(getPosts(idKelas));
 //                    pengguna.getAjarKelas().get(i).setArrAbsensiMurid(getAbsensiMurid(idKelas));
                     pengguna.getAjarKelas().get(i).setArrMurid(getStudentsInClass(idKelas));
@@ -244,11 +244,10 @@ public class TeacherController {
         conn.disconnect();
     }
 
-
     public void inputGrade(int idKelas, int idTugas, int idMurid, int nilai) {
         conn.connect();
-        String query = "UPDATE tugas SET nilai = " + nilai +
-                " WHERE id_tugas = " + idTugas + " && id_murid = " + idMurid;
+        String query = "UPDATE tugas SET nilai = " + nilai
+                + " WHERE id_tugas = " + idTugas + " && id_murid = " + idMurid;
         try {
             PreparedStatement st = conn.con.prepareStatement(query);
             st.execute();
@@ -272,7 +271,7 @@ public class TeacherController {
         }
         conn.disconnect();
     }
-    
+
     public void kickStudent(Guru pengguna, int idKelas, int idMurid) {
         conn.connect();
         String query = "DELETE FROM murid_kelas WHERE id_kelas = " + idKelas + " && id_murid = " + idMurid;
@@ -285,4 +284,17 @@ public class TeacherController {
         }
     }
 
+    public void addGuru(String nama, String Nik, String pw, String tlp) {
+        conn.connect();
+        String query = "INSERT INTO `guru` "
+                + "(`nama`, `nik`, `password`, `no_telepon`) "
+                + "VALUES "
+                + "('" + nama + "', '" + Nik + "', '" + pw + "', '"+tlp + "')";
+	try {
+	    PreparedStatement preparedStmt = conn.con.prepareStatement(query);
+	    preparedStmt.execute();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+    }
 }
