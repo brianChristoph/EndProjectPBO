@@ -30,11 +30,11 @@ public class newPost {
         identity.setFont(roboto);
         frame.add(identity);
         
-        JTextField judul = new JTextField();
-        judul.setBounds(63, 386, 306, 33);
+        JTextField judul = new JTextField("Judul");
+        judul.setBounds(63, 265, 306, 33);
         frame.add(judul);
-        JTextField deskripsi = new JTextField();
-        deskripsi.setBounds(63, 386, 306, 33);
+        JTextField deskripsi = new JTextField("Desc");
+        deskripsi.setBounds(63, 310, 306, 33);
         frame.add(deskripsi);
         
         JButton create = new JButton("Post");
