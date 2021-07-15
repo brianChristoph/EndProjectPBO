@@ -20,7 +20,7 @@ public class StudentDashboard {
     public StudentDashboard() {
         JFrame f = new JFrame("Student Dashboard");
 
-        Header header = new Header("Jo");
+        Header header = new Header("Student Dashbaord");
         JPanel head = header.getHeader();
         head.setLocation(0, 0);
         f.add(head);

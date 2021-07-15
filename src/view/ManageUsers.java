@@ -6,6 +6,8 @@
 package view;
 
 import controller.MainController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -64,7 +66,16 @@ public class ManageUsers {
         tp.add("Murid/OrangTua", p1);
         tp.add("Guru", p2);
         tp.add("Admin", p3);
-        
+        Buttons button = new Buttons();
+        button.back.setLocation(295, 660);
+        f.add(button.back);
+        button.back.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                f.setVisible(false);
+                new AdminDashboard();
+            }
+        });
         f.setSize(432,768);
         f.add(tp);
         f.setLayout(null);

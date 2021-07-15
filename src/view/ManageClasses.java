@@ -6,6 +6,8 @@
 package view;
 
 import controller.MainController;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,6 +31,16 @@ public class ManageClasses {
             y += 35;
             f.add(title);
         }
+        Buttons button = new Buttons();
+        button.back.setLocation(295, 660);
+        f.add(button.back);
+        button.back.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                f.setVisible(false);
+                new AdminDashboard();
+            }
+        });
         f.setLayout(null);
         f.setSize(432,768);
         f.setVisible(true);
