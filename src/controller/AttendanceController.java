@@ -29,13 +29,30 @@ public class AttendanceController {
 	if (tipe == TipeUser.STUDENT) {
 	    listAbsensi = getListAbsensi(id);
 	} else if (tipe == TipeUser.PARENT) {
-	    listAbsensi = getListAbsensi(id);
+	    listAbsensi = getListAbsensiForParent(id);
 	} else if (tipe == TipeUser.TEACHER) {
 	    listAbsensi = getListAbsensi(id);
 	}
 
 	return listAbsensi;
 
+    }
+
+    private ArrayList<Absensi> getListAbsensiForParent(int id) {
+	ArrayList<Absensi> list = new ArrayList<>();
+	String query = "SELECT `id_murid` FROM `murid` WHERE id_ortu = " + id;
+
+	try {
+	    Statement st = conn.con.createStatement();
+	    ResultSet rs = st.executeQuery(query);
+	    while (rs.next()) {
+		list = getListAbsensi(rs.getInt("id_murid"));
+	    }
+	    return list;
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+	return null;
     }
 
     private ArrayList<Absensi> getListAbsensi(int id) {
