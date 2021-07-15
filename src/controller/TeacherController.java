@@ -189,11 +189,12 @@ public class TeacherController {
 
     public void createNewPost(int idKelas, String judul, String post) {
         conn.connect();
-        String query = "INSERT INTO `post`(`judul`, `deskripsi`) VALUES (?,?)";
+        String query = "INSERT INTO `post`(`judul`, `deskripsi`, `id_kelas`) VALUES (?,?,?)";
         try {
             PreparedStatement st = conn.con.prepareStatement(query);
             st.setString(1, judul);
             st.setString(2, post);
+            st.setInt(3, idKelas);
             st.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -235,8 +236,10 @@ public class TeacherController {
         conn.connect();
         String query = "DELETE FROM post WHERE id_post = " + idPost;
         try {
-            Statement st = conn.con.createStatement();
-            ResultSet rs = st.executeQuery(query);
+            PreparedStatement st = conn.con.prepareStatement(query);
+            st.executeUpdate();
+//            Statement st = conn.con.createStatement();
+//            ResultSet rs = st.executeQuery(query);
             updateUserData(pengguna, idKelas);
         } catch (SQLException ex) {
             ex.printStackTrace();
