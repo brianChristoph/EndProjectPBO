@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.MuridController;
 import controller.TeacherController;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,9 +20,9 @@ import javax.swing.JTextField;
  *
  * @author jonat
  */
-public class InsertGuru {
+public class InsertMurid {
 
-    public InsertGuru() {
+    public InsertMurid() {
         JFrame frame = new JFrame();
         Font roboto = new Font("Roboto", Font.PLAIN, 18);
         
@@ -34,10 +35,10 @@ public class InsertGuru {
         nama.setFont(roboto);
         frame.add(nama);
         
-        JLabel nik = new JLabel ("Nik");
-        nik.setBounds(60, 120, 130, 32);
-        nik.setFont(roboto);
-        frame.add(nik);
+        JLabel nip = new JLabel ("Nik");
+        nip.setBounds(60, 120, 130, 32);
+        nip.setFont(roboto);
+        frame.add(nip);
         
         JLabel password = new JLabel ("Password");
         password.setBounds(60, 155, 130, 32);
@@ -53,9 +54,9 @@ public class InsertGuru {
         inputNama.setBounds(190, 72, 200, 33);
         frame.add(inputNama);
         
-        JTextField inputNik = new JTextField();
-        inputNik.setBounds(190, 120, 200, 33);
-        frame.add(inputNik);
+        JTextField inputNip = new JTextField();
+        inputNip.setBounds(190, 120, 200, 33);
+        frame.add(inputNip);
 
         JTextField inputPassword = new JTextField();
         inputPassword.setBounds(190, 155, 200, 33);
@@ -71,8 +72,8 @@ public class InsertGuru {
         create.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TeacherController tc = new TeacherController();
-                tc.addGuru(inputNama.getText(), inputNik.getText(), inputPassword.getText(), inputTlp.getText());
+                MuridController mc = new MuridController();
+                mc.addMurid(inputNama.getText(), inputNip.getText(), inputPassword.getText(), inputTlp.getText());
                 frame.setVisible(false);
                 new ManageUsers();
             }
@@ -94,4 +95,5 @@ public class InsertGuru {
         frame.setVisible(true);
 
     }
+    
 }
