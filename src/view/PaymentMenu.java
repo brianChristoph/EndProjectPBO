@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import model.Murid;
 import java.util.Date;
+import model.UserManager;
 
 /**
  *
@@ -22,7 +23,7 @@ public class PaymentMenu {
     public PaymentMenu() {
         JFrame f = new JFrame("Payment Menu");
         ParentController c = new ParentController();
-        Murid murid = c.getAnak();
+        Murid murid = c.getAnak(UserManager.getInstance().getUser().getId());
         double spp = murid.getSPP();
         Date date = new Date();
         JLabel title = new JLabel("Tanggal" + date.getMonth());
@@ -41,8 +42,8 @@ public class PaymentMenu {
         button.back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ParentDashboard();
                 f.setVisible(false);
+                new ParentDashboard();
             }
         });
         

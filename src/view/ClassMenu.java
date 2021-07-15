@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import model.Guru;
 import model.Kelas;
 import model.Murid;
+import model.TipeUser;
 import model.User;
 import model.UserManager;
 
@@ -52,10 +53,7 @@ public class ClassMenu {
             
         }
         
-//        frame.getContentPane().setLayout(new FlowLayout());
-//        JScrollPane scrollableTextArea = new JScrollPane(f); 
-//        scrollableTextArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-//        frame.getContentPane().add(scrollableTextArea);
+
         
         ArrayList<Kelas> arrKelas = new ArrayList();
         User user = UserManager.getInstance().getUser();
@@ -105,10 +103,11 @@ public class ClassMenu {
         frame.setSize(432, 768);
         frame.setLayout(null);
         frame.setVisible(true);
+
     }
-    
-    private void createViewClass(Kelas kelas){
-        new ViewClass(kelas);
+
+    private void createViewClass(Kelas kelas) {
+	      new ViewClass(kelas);
     }
-    
+
 }

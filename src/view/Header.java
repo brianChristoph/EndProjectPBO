@@ -23,8 +23,11 @@ public class Header {
         JLabel section = new JLabel(sectionTitle);
       
         welcome.setBounds(156, 72, 120, 32);
-        userName.setBounds(131, 104, 170, 32);
-        section.setBounds(121, 149, 189, 36);
+        welcome.setHorizontalAlignment(SwingConstants.CENTER);
+        userName.setBounds(156, 104, 120, 32);
+        userName.setHorizontalAlignment(SwingConstants.CENTER);
+        section.setBounds(156, 149, 120, 36);
+        section.setHorizontalAlignment(SwingConstants.CENTER);
 
         header.add(welcome);
         header.add(userName);
@@ -35,17 +38,10 @@ public class Header {
         header.setVisible(true);
         header.setLayout(null);
         header.setLocation(0,0);
-        JFrame f = new JFrame("");
-        f.setSize(432,768);
-        f.add(header);
-        f.setLayout(null);
-        f.setVisible(true);
     }
   
     public JPanel getHeader() {
         return this.header;
     }
-    public static void main(String[] args) {
-        new Header("Test");
-    }
+    
 }
