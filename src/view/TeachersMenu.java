@@ -36,8 +36,8 @@ public class TeachersMenu {
         int tambah = 253;
         JLabel coloumGuru = new JLabel("Guru");
         JLabel coloumNoTlp = new JLabel("No Telepon");
-        coloumGuru.setBounds(62,250,220,13);
-        coloumNoTlp.setBounds(296,250,90,13);
+        coloumGuru.setBounds(46,220,220,13);
+        coloumNoTlp.setBounds(150,220,90,13);
         ArrayList<Guru> guru = c.getTeachersByMurid(id);
         for (int i = 0; i < guru.size(); i++) {
             JLabel namaGuru = new JLabel(guru.get(i).getNama() + ": ");
