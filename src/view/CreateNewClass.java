@@ -31,7 +31,7 @@ public class CreateNewClass {
         identity.setFont(roboto);
         frame.add(identity);
         
-        JLabel judul = new JLabel("Judul : ");
+        JLabel judul = new JLabel("Nama : ");
         JLabel kode = new JLabel("Kode : ");
         JLabel jadwal = new JLabel("Jadwal : ");
         
