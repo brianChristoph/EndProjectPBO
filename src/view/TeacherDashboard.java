@@ -19,26 +19,25 @@ public class TeacherDashboard {
 
     public TeacherDashboard() {
         JFrame f = new JFrame("Teacher Dashboard");
-        
+
         Header header = new Header("Teacher Dashboard");
         JPanel head = header.getHeader();
-        head.setLocation(0, 0); 
         f.add(head);
-        
+
         head.setLayout(null);
         head.setVisible(true);
         Buttons button = new Buttons();
-        
+
+        f.add(Header.header);
         button.classes.setLocation(56, 230);
         button.classes.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                f.add(Header.header);
                 new ClassMenu();
                 f.setVisible(false);
             }
         });
-        
+
         button.calendar.setLocation(243, 230);
         button.calendar.addActionListener(new ActionListener() {
             @Override
@@ -47,12 +46,12 @@ public class TeacherDashboard {
                 f.setVisible(false);
             }
         });
-        
+
         button.attendance.setLocation(56, 384);
         button.attendance.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TeachersMenu();
+                new AttendanceView();
                 f.setVisible(false);
             }
         });
@@ -65,21 +64,21 @@ public class TeacherDashboard {
             }
         });
         button.logout.setLocation(286, 660);
-        button.logout.addActionListener(new ActionListener(){
+        button.logout.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 UserManager.getInstance().setUser(null);
                 new LoginScreen();
                 f.setVisible(false);
             }
         });
-        
+
         f.add(button.classes);
         f.add(button.calendar);
         f.add(button.attendance);
         f.add(button.announcement);
         f.add(button.logout);
-        
+
         f.setSize(432, 768);
         f.setLayout(null);
         f.setVisible(true);
