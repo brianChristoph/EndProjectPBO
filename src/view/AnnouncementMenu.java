@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 import model.Pengumuman;
 import model.TipeUser;
 import model.UserManager;
@@ -26,6 +27,8 @@ public class AnnouncementMenu {
     public AnnouncementMenu() {
 	MainController c = new MainController();
 	JFrame f = new JFrame("Announcement");
+        Header header = new Header("Add Announcement");
+        f.add(header.getHeader());
 	ArrayList<Pengumuman> announcement = c.getAllAnnouncement();
 	TipeUser tipe = UserManager.getInstance().getUser().getTipe();
 	if (tipe == TipeUser.ADMIN || tipe == TipeUser.TEACHER) {
@@ -39,11 +42,17 @@ public class AnnouncementMenu {
 		}
 	    });
 	}
+        int titlePlus = 250;
+        int descPlus = 270;
 	for (int i = 0; i < announcement.size(); i++) {
 	    JLabel title = new JLabel(announcement.get(i).getJudul());
-	    JLabel desc = new JLabel(announcement.get(i).getDeskripsi());
-	    title.setBounds(61, 250, 230, 16);
-	    desc.setBounds(297, 250, 65, 16);
+	    JTextArea desc = new JTextArea(announcement.get(i).getDeskripsi());
+	    title.setBounds(61, titlePlus, 230, 16);
+	    desc.setBounds(61, descPlus, 230, 30);
+            desc.setEditable(false);
+            desc.setLineWrap(true);
+            titlePlus += 50;
+            descPlus +=  50;
 	    f.add(title);
 	    f.add(desc);
 	}
@@ -54,7 +63,7 @@ public class AnnouncementMenu {
 	button.back.addActionListener(new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		f.setVisible(false);
+                f.setVisible(false);
 		if (tipe == TipeUser.STUDENT) {
 		    new StudentDashboard();
 		} else if (tipe == TipeUser.PARENT) {

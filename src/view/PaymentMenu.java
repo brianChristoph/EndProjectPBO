@@ -42,8 +42,8 @@ public class PaymentMenu {
         button.back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ParentDashboard();
                 f.setVisible(false);
+                new ParentDashboard();
             }
         });
         
