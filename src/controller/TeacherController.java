@@ -172,7 +172,7 @@ public class TeacherController {
     
     public void createNewKelas(Guru guru, String nama, String kode, String jadwal){
         conn.connect();
-        String query = "INSERT INTO kelas (`id_guru`, `judul`, `kode`, `jadwal`) VALUES (?,?,?,?)";
+        String query = "INSERT INTO kelas (`id_guru`, `nama`, `kode`, `jadwal`) VALUES (?,?,?,?)";
         try {
             PreparedStatement st = conn.con.prepareStatement(query);
             st.setInt(1, UserManager.getInstance().getUser().getId());
