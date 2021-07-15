@@ -34,7 +34,7 @@ public class AdminDashboard {
         button.manageUsers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new manageUser();
+                new ManageUsers();
                 f.setVisible(false);
             }
         });
@@ -43,7 +43,7 @@ public class AdminDashboard {
         button.manageClasses.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                new manageClass();
+                new ManageClasses();
                 f.setVisible(false);
             }
         });

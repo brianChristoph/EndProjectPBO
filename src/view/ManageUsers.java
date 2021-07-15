@@ -26,34 +26,35 @@ import model.User;
 public class ManageUsers {
 
     public ManageUsers() {
-        JFrame f = new JFrame("Manage User");
+        JFrame f = new JFrame("List User");
         MainController c = new MainController();
         
-        ArrayList<User> listUser = c.getAllParents();
-        for (int i = 0; i < listUser.size(); i++) {
-            OrangTua ortu = (OrangTua) listUser.get(i);
-            listUser.add(ortu.getAnak());
-        }
+        ArrayList<User> listUser = c.getAllMurid();
+        
+        int startp1 = 100;
         JPanel p1 = new JPanel();
         for (int i = 0; i < listUser.size(); i++) {
             JLabel nama = new JLabel(listUser.get(i).getNama());
-//            nama.setBounds();
+            nama.setBounds(25,startp1,200,30);
+            startp1 += 35;
             p1.add(nama);
         }
-
+        int startp2 = 100;
         ArrayList<Guru> listTeacher = c.getAllTeacher();
         JPanel p2 = new JPanel();
         for (int i = 0; i < listTeacher.size(); i++) {
             JLabel nama = new JLabel(listTeacher.get(i).getNama());
-//            nama.setBounds();
+            nama.setBounds(25,startp2,200,30);
+            startp2 += 35;
             p2.add(nama);
         }
-
+        int startp3 = 100;
         ArrayList<Admin> listAdmin = c.getAllAdmin();
         JPanel p3 = new JPanel();
         for (int i = 0; i < listAdmin.size(); i++) {
             JLabel nama = new JLabel(listAdmin.get(i).getNama());
-//            nama.setBounds();
+            nama.setBounds(25,startp3,200,100);
+            startp3 += 35;
             p3.add(nama);
         }
         
@@ -64,6 +65,7 @@ public class ManageUsers {
         tp.add("Guru", p2);
         tp.add("Admin", p3);
         
+        f.setSize(432,768);
         f.add(tp);
         f.setLayout(null);
         f.setVisible(true);
